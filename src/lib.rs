@@ -125,6 +125,18 @@ impl Trie {
             .map(|s| s.as_ref())
             .unwrap_or_else(|| self.childrens[0].first())
     }
+
+    pub fn fastest_access(&self) -> (&str, usize) {
+        if let Some(s) = self.terminate.first() {
+            (s.as_ref(), 1)
+        } else {
+            let mut childrens: Vec<_> = self.childrens.iter().map(|c| c.fastest_access()).collect();
+            childrens.sort_by(|(_, l), (_, r)| l.cmp(r));
+            let (s, i) = childrens[0];
+
+            (s, i + 1)
+        }
+    }
 }
 
 fn longuest_prefix(left: &[Dir], right: &[Dir]) -> usize {

@@ -20,6 +20,6 @@ fn main() {
 
     trie.finish();
 
-    // println!("{:#?}", trie);
-    println!("{}", trie.first());
+    println!("Fastest to access: {}", trie.fastest_access().0);
+    println!("First children to get his gift: {}", trie.first());
 }
