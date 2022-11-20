@@ -1,0 +1,12 @@
+[package]
+name = "meili-aoc"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+insta = "1.21.1"
+itertools = "0.10.5"
+rand = "0.8.5"
+trie-rs = "0.1.1"
