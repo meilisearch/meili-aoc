@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, str::FromStr};
+use std::{cmp::Ordering, collections::HashSet, str::FromStr};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Dir {
@@ -38,6 +38,8 @@ impl FromStr for Dir {
 pub struct Trie {
     pub directions: Vec<Dir>,
     pub childrens: Vec<Trie>,
+    pub parent: Option<&'static Trie>,
+
     pub terminate: Vec<String>,
 }
 
@@ -79,11 +81,13 @@ impl Trie {
                 if self.childrens.len() == 2 {
                     panic!("error while inserting {}", name);
                 }
+
                 // if we reach this point it means there was not children anywhere
                 // thus we're going to create a new node just for this string.
                 self.childrens.push(Trie {
                     directions: directions_to_insert.to_vec(),
                     childrens: Vec::new(),
+                    parent: None,
                     terminate: vec![name],
                 });
             }
@@ -95,6 +99,7 @@ impl Trie {
             let suffix = Trie {
                 directions: suffix.to_vec(),
                 childrens: self.childrens.clone(),
+                parent: None,
                 terminate: self.terminate.clone(),
             };
 
@@ -107,6 +112,7 @@ impl Trie {
                 let new = Trie {
                     directions: directions[common_prefix..].to_vec(),
                     childrens: Vec::new(),
+                    parent: None,
                     terminate: vec![name],
                 };
                 self.directions = prefix.to_vec();
@@ -116,10 +122,22 @@ impl Trie {
         }
     }
 
+    /// Sort everything + set the parent parts of the trie.
     pub fn finish(&mut self) {
-        self.childrens.iter_mut().for_each(Self::finish);
+        self._finish(None)
+    }
+
+    fn _finish(&mut self, r: Option<&'static Self>) {
+        // We MUST sort everything BEFORE setting the parent
         self.childrens.sort();
         self.terminate.sort();
+        let this: &'static Self = unsafe { (self as *const Self).as_ref().unwrap() };
+
+        for c in &mut self.childrens {
+            c._finish(Some(this));
+        }
+
+        self.parent = r;
     }
 
     pub fn first(&self) -> &str {
@@ -129,15 +147,30 @@ impl Trie {
             .unwrap_or_else(|| self.childrens[0].first())
     }
 
-    pub fn fastest_access(&self) -> (&str, usize) {
+    // TODO: djikstra here
+    pub fn fastest_access(&self, mut ignored: HashSet<*const Trie>) -> Option<(&str, usize)> {
+        // println!("Called on {:p} with {:?}", self, ignored);
         if let Some(s) = self.terminate.first() {
-            (s.as_ref(), 1)
+            Some((s.as_ref(), 1))
         } else {
-            let mut childrens: Vec<_> = self.childrens.iter().map(|c| c.fastest_access()).collect();
+            ignored.insert(self as *const Trie);
+            let mut childrens: Vec<_> = self
+                .childrens
+                .iter()
+                .filter(|c| !ignored.contains(&(*c as *const Trie)))
+                .filter_map(|c| c.fastest_access(ignored.clone()))
+                .collect();
+            if let Some(parent) = self.parent {
+                if let Some(parent) = parent.fastest_access(ignored) {
+                    childrens.push(parent);
+                }
+            }
             childrens.sort_by(|(_, l), (_, r)| l.cmp(r));
-            let (s, i) = childrens[0];
-
-            (s, i + 1)
+            if let Some((s, i)) = childrens.get(0) {
+                Some((s, i + 1))
+            } else {
+                Some((self.terminate.first().map(|s| s.as_ref())?, 1))
+            }
         }
     }
 

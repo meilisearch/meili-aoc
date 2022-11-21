@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use meili_aoc::*;
 
 fn main() {
@@ -20,8 +22,15 @@ fn main() {
     trie.finish();
     // trie.to_graph();
 
+    println!("Part 1:");
     println!("Number of nodes: {}", trie.nb_nodes());
     println!("Depth: {}", trie.depth());
-    println!("Fastest to access: {}", trie.fastest_access().0);
+    println!(
+        "Fastest to access: {}",
+        trie.fastest_access(HashSet::new()).unwrap().0
+    );
     println!("First children to get his gift: {}", trie.first());
+
+    // -------------- Part 2
+    println!("Part 2:");
 }
