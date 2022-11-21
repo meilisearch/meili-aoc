@@ -41,7 +41,7 @@ fn main() {
         if let Some((trie, dist)) = current.fastest_access(&ignored) {
             current = trie;
             total_distance += dist;
-            // println!("Gift to {}", current.terminate[0]);
+            println!("Gift to {}", current.terminate[0]);
         } else {
             println!("{total_distance} nodes has been covered.");
             break;

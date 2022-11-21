@@ -14,6 +14,7 @@ luna - LRRR
 lena - RLLR
 thomas - LRLL
 tommy - LLL
+chayaline - LRLL
 ```
 
 On the left is the name of the child that needs to get his gift.
@@ -24,7 +25,7 @@ Since there are so many children every year, Santa has a machine that creates a 
 With the input above, this is what the structure would look like:
 ```
            LL - - - - - - tommy
-          /   L - - - - - thomas
+          /   L - - - - - chayaline, thomas
          /   /
         /   L - R - - - - kero
        /   /
@@ -51,7 +52,7 @@ For the second part, you need to count how many instructions it'll take to Santa
 ```
 Step 0:
            LL - - - - - - tommy
-          /   L - - - - - thomas
+          /   L - - - - - chayaline, thomas
          /   /
         /   L - R - - - - kero
        /   /
@@ -65,7 +66,7 @@ Step 0:
          
 Step 1:
            LL - - - - - - 2 instructions
-          /   L - - - - - thomas
+          /   L - - - - - chayaline, thomas
          /   /
         /   L - R - - - - kero
        /   /
@@ -78,7 +79,7 @@ Step 1:
       RL - RLR - - - - -  tamo
 
 Step 2:
-              L - - - - - thomas
+              L - - - - - chayaline, thomas
              /
             L - R - - - - kero
            /

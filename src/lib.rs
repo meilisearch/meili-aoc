@@ -1,3 +1,4 @@
+use std::fmt::Debug;
 use std::{cmp::Ordering, collections::HashSet, str::FromStr};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -34,13 +35,46 @@ impl FromStr for Dir {
     }
 }
 
-#[derive(Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub struct Trie {
     pub directions: Vec<Dir>,
     pub childrens: Vec<Trie>,
     pub parent: Option<&'static Trie>,
 
+    pub whole_path: Vec<Dir>,
     pub terminate: Vec<String>,
+}
+
+impl Debug for Trie {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Trie")
+            .field(
+                "directions",
+                &self
+                    .directions
+                    .iter()
+                    .map(|d| match d {
+                        Dir::Left => 'L',
+                        Dir::Right => 'R',
+                    })
+                    .collect::<String>(),
+            )
+            .field(
+                "whole_path",
+                &self
+                    .whole_path
+                    .iter()
+                    .map(|d| match d {
+                        Dir::Left => 'L',
+                        Dir::Right => 'R',
+                    })
+                    .collect::<String>(),
+            )
+            .field("childrens", &self.childrens)
+            .field("terminate", &self.terminate)
+            // we must ignore the parents or else we're going to run in an inifinite loop
+            .finish_non_exhaustive()
+    }
 }
 
 impl PartialOrd for Trie {
@@ -82,42 +116,59 @@ impl Trie {
                     panic!("error while inserting {}", name);
                 }
 
+                let mut whole_path = self.whole_path.to_vec();
+                whole_path.extend_from_slice(&directions_to_insert);
                 // if we reach this point it means there was not children anywhere
                 // thus we're going to create a new node just for this string.
                 self.childrens.push(Trie {
                     directions: directions_to_insert.to_vec(),
                     childrens: Vec::new(),
                     parent: None,
+                    whole_path,
                     terminate: vec![name],
                 });
             }
         } else {
-            // we'll need to split ourselves into two node
+            // we'll need to split ourselves into two nodes
             let prefix = &self.directions[0..common_prefix];
             let suffix = &self.directions[common_prefix..];
 
+            // good noice
             let suffix = Trie {
                 directions: suffix.to_vec(),
                 childrens: self.childrens.clone(),
                 parent: None,
+                whole_path: self.whole_path.to_vec(),
                 terminate: self.terminate.clone(),
             };
 
             if directions.len() == common_prefix {
                 // It's a terminal node we can stop right there.
                 self.directions = prefix.to_vec();
+                self.whole_path =
+                    self.whole_path[0..self.whole_path.len() - suffix.directions.len()].to_vec();
                 self.childrens = vec![suffix];
                 self.terminate = vec![name];
+                println!("here 1");
             } else {
+                let mut whole_path =
+                    self.whole_path[0..self.whole_path.len() - suffix.directions.len()].to_vec();
+                whole_path.extend_from_slice(&directions[common_prefix..]);
                 let new = Trie {
                     directions: directions[common_prefix..].to_vec(),
                     childrens: Vec::new(),
                     parent: None,
+                    // whole_path: vec![Dir::Left, Dir::Right, Dir::Left],
+                    whole_path,
                     terminate: vec![name],
                 };
                 self.directions = prefix.to_vec();
+                self.whole_path =
+                    self.whole_path[0..self.whole_path.len() - new.directions.len()].to_vec();
+                // self.whole_path = vec![Dir::Left, Dir::Right, Dir::Left];
                 self.childrens = vec![suffix, new];
                 self.terminate = Vec::new();
+                println!("here 2");
             }
         }
     }
@@ -160,13 +211,35 @@ impl Trie {
             .map(|node| (node, 1))
             .collect();
 
+        // the best node we've found so far
+        let mut best: Option<(&Trie, usize)> = None;
+
         loop {
-            // if there is no node left it means we've explored everything
-            let (current_node, dist) = to_explore.pop()?;
+            let (current_node, dist) = match to_explore.pop() {
+                Some(to_explore) => to_explore,
+                // if there is no node left it means we've explored everything
+                None if best.is_none() => return None,
+                None => return best,
+            };
             let current_node_addr = current_node as *const Trie;
 
+            // if this is a terminal node AND it hasn't been encountered in a previous step.
             if !current_node.terminate.is_empty() && !ignored.contains(&current_node_addr) {
-                return Some((current_node, dist));
+                if best.is_none() {
+                    best = Some((current_node, dist));
+                    // we found a better node, we can delete everything worse than that
+                    to_explore.retain(|(_, s)| *s <= dist);
+                } else {
+                    let (_b, d) = best.as_ref().unwrap();
+                    if *d > dist {
+                        best = Some((current_node, dist));
+                        // we found a better node, we can delete everything worse than that
+                        to_explore.retain(|(_, s)| *s <= dist);
+                    } else if *d == dist {
+                        todo!("sort by path");
+                    }
+                    // else we can ignore this entry
+                }
             }
             explored_nodes.insert(current_node_addr);
             to_explore.extend(
@@ -264,22 +337,21 @@ mod tests {
         trie.insert(&vec![Left, Left, Left, Left], String::from("bob"));
         insta::assert_debug_snapshot!(trie, @r###"
         Trie {
-            directions: [],
+            directions: "",
+            whole_path: "",
             childrens: [
                 Trie {
-                    directions: [
-                        Left,
-                        Left,
-                        Left,
-                        Left,
-                    ],
+                    directions: "LLLL",
+                    whole_path: "LLLL",
                     childrens: [],
                     terminate: [
                         "bob",
                     ],
+                    ..
                 },
             ],
             terminate: [],
+            ..
         }
         "###);
 
@@ -287,34 +359,30 @@ mod tests {
         trie.insert(&vec![Right, Right, Right, Right], String::from("alice"));
         insta::assert_debug_snapshot!(trie, @r###"
         Trie {
-            directions: [],
+            directions: "",
+            whole_path: "",
             childrens: [
                 Trie {
-                    directions: [
-                        Left,
-                        Left,
-                        Left,
-                        Left,
-                    ],
+                    directions: "LLLL",
+                    whole_path: "LLLL",
                     childrens: [],
                     terminate: [
                         "bob",
                     ],
+                    ..
                 },
                 Trie {
-                    directions: [
-                        Right,
-                        Right,
-                        Right,
-                        Right,
-                    ],
+                    directions: "RRRR",
+                    whole_path: "RRRR",
                     childrens: [],
                     terminate: [
                         "alice",
                     ],
+                    ..
                 },
             ],
             terminate: [],
+            ..
         }
         "###);
 
@@ -322,43 +390,40 @@ mod tests {
         trie.insert(&vec![Left, Left], String::from("jean"));
         insta::assert_debug_snapshot!(trie, @r###"
         Trie {
-            directions: [],
+            directions: "",
+            whole_path: "",
             childrens: [
                 Trie {
-                    directions: [
-                        Left,
-                        Left,
-                    ],
+                    directions: "LL",
+                    whole_path: "LL",
                     childrens: [
                         Trie {
-                            directions: [
-                                Left,
-                                Left,
-                            ],
+                            directions: "LL",
+                            whole_path: "LLLL",
                             childrens: [],
                             terminate: [
                                 "bob",
                             ],
+                            ..
                         },
                     ],
                     terminate: [
                         "jean",
                     ],
+                    ..
                 },
                 Trie {
-                    directions: [
-                        Right,
-                        Right,
-                        Right,
-                        Right,
-                    ],
+                    directions: "RRRR",
+                    whole_path: "RRRR",
                     childrens: [],
                     terminate: [
                         "alice",
                     ],
+                    ..
                 },
             ],
             terminate: [],
+            ..
         }
         "###);
 
@@ -366,124 +431,119 @@ mod tests {
         trie.insert(&vec![Left, Left, Left, Left, Left], String::from("michel"));
         insta::assert_debug_snapshot!(trie, @r###"
         Trie {
-            directions: [],
+            directions: "",
+            whole_path: "",
             childrens: [
                 Trie {
-                    directions: [
-                        Left,
-                        Left,
-                    ],
+                    directions: "LL",
+                    whole_path: "LL",
                     childrens: [
                         Trie {
-                            directions: [
-                                Left,
-                                Left,
-                            ],
+                            directions: "LL",
+                            whole_path: "LLLL",
                             childrens: [
                                 Trie {
-                                    directions: [
-                                        Left,
-                                    ],
+                                    directions: "L",
+                                    whole_path: "LLLLL",
                                     childrens: [],
                                     terminate: [
                                         "michel",
                                     ],
+                                    ..
                                 },
                             ],
                             terminate: [
                                 "bob",
                             ],
+                            ..
                         },
                     ],
                     terminate: [
                         "jean",
                     ],
+                    ..
                 },
                 Trie {
-                    directions: [
-                        Right,
-                        Right,
-                        Right,
-                        Right,
-                    ],
+                    directions: "RRRR",
+                    whole_path: "RRRR",
                     childrens: [],
                     terminate: [
                         "alice",
                     ],
+                    ..
                 },
             ],
             terminate: [],
+            ..
         }
         "###);
 
+        println!("Right before the faulty insert");
         // splitting + appending
         trie.insert(&vec![Right, Right, Left, Left], String::from("tamo"));
         insta::assert_debug_snapshot!(trie, @r###"
         Trie {
-            directions: [],
+            directions: "",
+            whole_path: "",
             childrens: [
                 Trie {
-                    directions: [
-                        Left,
-                        Left,
-                    ],
+                    directions: "LL",
+                    whole_path: "LL",
                     childrens: [
                         Trie {
-                            directions: [
-                                Left,
-                                Left,
-                            ],
+                            directions: "LL",
+                            whole_path: "LLLL",
                             childrens: [
                                 Trie {
-                                    directions: [
-                                        Left,
-                                    ],
+                                    directions: "L",
+                                    whole_path: "LLLLL",
                                     childrens: [],
                                     terminate: [
                                         "michel",
                                     ],
+                                    ..
                                 },
                             ],
                             terminate: [
                                 "bob",
                             ],
+                            ..
                         },
                     ],
                     terminate: [
                         "jean",
                     ],
+                    ..
                 },
                 Trie {
-                    directions: [
-                        Right,
-                        Right,
-                    ],
+                    directions: "RR",
+                    whole_path: "RR",
                     childrens: [
                         Trie {
-                            directions: [
-                                Right,
-                                Right,
-                            ],
+                            directions: "RR",
+                            whole_path: "RRRR",
                             childrens: [],
                             terminate: [
                                 "alice",
                             ],
+                            ..
                         },
                         Trie {
-                            directions: [
-                                Left,
-                                Left,
-                            ],
+                            directions: "LL",
+                            whole_path: "RRLL",
                             childrens: [],
                             terminate: [
                                 "tamo",
                             ],
+                            ..
                         },
                     ],
                     terminate: [],
+                    ..
                 },
             ],
             terminate: [],
+            ..
         }
         "###);
     }
@@ -503,6 +563,94 @@ mod tests {
 
         trie.finish();
 
-        insta::assert_debug_snapshot!(trie, @r###""###);
+        insta::assert_debug_snapshot!(trie, @r###"
+        Trie {
+            directions: "",
+            whole_path: "",
+            childrens: [
+                Trie {
+                    directions: "L",
+                    whole_path: "L",
+                    childrens: [
+                        Trie {
+                            directions: "L",
+                            whole_path: "LL",
+                            childrens: [
+                                Trie {
+                                    directions: "L",
+                                    whole_path: "LLL",
+                                    childrens: [
+                                        Trie {
+                                            directions: "L",
+                                            whole_path: "LLLL",
+                                            childrens: [],
+                                            terminate: [
+                                                "a",
+                                            ],
+                                            ..
+                                        },
+                                    ],
+                                    terminate: [
+                                        "c",
+                                    ],
+                                    ..
+                                },
+                                Trie {
+                                    directions: "R",
+                                    whole_path: "LLR",
+                                    childrens: [],
+                                    terminate: [
+                                        "b",
+                                    ],
+                                    ..
+                                },
+                            ],
+                            terminate: [],
+                            ..
+                        },
+                        Trie {
+                            directions: "R",
+                            whole_path: "LLR",
+                            childrens: [
+                                Trie {
+                                    directions: "L",
+                                    whole_path: "LLRL",
+                                    childrens: [],
+                                    terminate: [
+                                        "d",
+                                    ],
+                                    ..
+                                },
+                                Trie {
+                                    directions: "R",
+                                    whole_path: "LLRR",
+                                    childrens: [],
+                                    terminate: [
+                                        "e",
+                                    ],
+                                    ..
+                                },
+                            ],
+                            terminate: [],
+                            ..
+                        },
+                    ],
+                    terminate: [],
+                    ..
+                },
+                Trie {
+                    directions: "RRR",
+                    whole_path: "RRR",
+                    childrens: [],
+                    terminate: [
+                        "f",
+                    ],
+                    ..
+                },
+            ],
+            terminate: [],
+            ..
+        }
+        "###);
     }
 }
