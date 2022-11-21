@@ -116,15 +116,13 @@ impl Trie {
                     panic!("error while inserting {}", name);
                 }
 
-                let mut whole_path = self.whole_path.to_vec();
-                whole_path.extend_from_slice(&directions_to_insert);
                 // if we reach this point it means there was not children anywhere
                 // thus we're going to create a new node just for this string.
                 self.childrens.push(Trie {
                     directions: directions_to_insert.to_vec(),
                     childrens: Vec::new(),
                     parent: None,
-                    whole_path,
+                    whole_path: Vec::new(),
                     terminate: vec![name],
                 });
             }
@@ -138,54 +136,47 @@ impl Trie {
                 directions: suffix.to_vec(),
                 childrens: self.childrens.clone(),
                 parent: None,
-                whole_path: self.whole_path.to_vec(),
+                whole_path: Vec::new(),
                 terminate: self.terminate.clone(),
             };
 
             if directions.len() == common_prefix {
                 // It's a terminal node we can stop right there.
                 self.directions = prefix.to_vec();
-                self.whole_path =
-                    self.whole_path[0..self.whole_path.len() - suffix.directions.len()].to_vec();
                 self.childrens = vec![suffix];
                 self.terminate = vec![name];
-                println!("here 1");
             } else {
-                let mut whole_path =
-                    self.whole_path[0..self.whole_path.len() - suffix.directions.len()].to_vec();
-                whole_path.extend_from_slice(&directions[common_prefix..]);
                 let new = Trie {
                     directions: directions[common_prefix..].to_vec(),
                     childrens: Vec::new(),
                     parent: None,
-                    // whole_path: vec![Dir::Left, Dir::Right, Dir::Left],
-                    whole_path,
+                    whole_path: Vec::new(),
                     terminate: vec![name],
                 };
                 self.directions = prefix.to_vec();
-                self.whole_path =
-                    self.whole_path[0..self.whole_path.len() - new.directions.len()].to_vec();
-                // self.whole_path = vec![Dir::Left, Dir::Right, Dir::Left];
                 self.childrens = vec![suffix, new];
                 self.terminate = Vec::new();
-                println!("here 2");
             }
         }
     }
 
     /// Sort everything + set the parent parts of the trie.
     pub fn finish(&mut self) {
-        self._finish(None)
+        self._finish(None, &[])
     }
 
-    fn _finish(&mut self, r: Option<&'static Self>) {
+    fn _finish(&mut self, r: Option<&'static Self>, whole_path: &[Dir]) {
         // We MUST sort everything BEFORE setting the parent
         self.childrens.sort();
         self.terminate.sort();
+        // probably useless.
+        self.whole_path.clear();
+        self.whole_path
+            .extend(whole_path.iter().chain(&self.directions).copied());
         let this: &'static Self = unsafe { (self as *const Self).as_ref().unwrap() };
 
         for c in &mut self.childrens {
-            c._finish(Some(this));
+            c._finish(Some(this), &self.whole_path);
         }
 
         self.parent = r;
@@ -203,6 +194,7 @@ impl Trie {
     pub fn fastest_access(&self, ignored: &HashSet<*const Trie>) -> Option<(&Trie, usize)> {
         // explored_nodes are the nodes we've already explored in THIS iteration.
         let mut explored_nodes = HashSet::<*const Trie>::new();
+        explored_nodes.insert(self as *const Trie);
         // a pair of the node to explore + their distance from the beginning.
         let mut to_explore: Vec<(&Trie, usize)> = self
             .childrens
@@ -215,6 +207,8 @@ impl Trie {
         let mut best: Option<(&Trie, usize)> = None;
 
         loop {
+            to_explore.sort_unstable_by(|(_, l), (_, r)| l.cmp(r));
+
             let (current_node, dist) = match to_explore.pop() {
                 Some(to_explore) => to_explore,
                 // if there is no node left it means we've explored everything
@@ -228,15 +222,17 @@ impl Trie {
                 if best.is_none() {
                     best = Some((current_node, dist));
                     // we found a better node, we can delete everything worse than that
-                    to_explore.retain(|(_, s)| *s <= dist);
+                    to_explore.retain(|(_, d)| *d <= dist);
                 } else {
-                    let (_b, d) = best.as_ref().unwrap();
+                    let (b, d) = best.as_ref().unwrap();
                     if *d > dist {
                         best = Some((current_node, dist));
                         // we found a better node, we can delete everything worse than that
-                        to_explore.retain(|(_, s)| *s <= dist);
+                        to_explore.retain(|(_, d)| *d <= dist);
                     } else if *d == dist {
-                        todo!("sort by path");
+                        if b.whole_path > current_node.whole_path {
+                            best = Some((current_node, dist));
+                        }
                     }
                     // else we can ignore this entry
                 }
@@ -342,7 +338,7 @@ mod tests {
             childrens: [
                 Trie {
                     directions: "LLLL",
-                    whole_path: "LLLL",
+                    whole_path: "",
                     childrens: [],
                     terminate: [
                         "bob",
@@ -364,7 +360,7 @@ mod tests {
             childrens: [
                 Trie {
                     directions: "LLLL",
-                    whole_path: "LLLL",
+                    whole_path: "",
                     childrens: [],
                     terminate: [
                         "bob",
@@ -373,7 +369,7 @@ mod tests {
                 },
                 Trie {
                     directions: "RRRR",
-                    whole_path: "RRRR",
+                    whole_path: "",
                     childrens: [],
                     terminate: [
                         "alice",
@@ -395,11 +391,11 @@ mod tests {
             childrens: [
                 Trie {
                     directions: "LL",
-                    whole_path: "LL",
+                    whole_path: "",
                     childrens: [
                         Trie {
                             directions: "LL",
-                            whole_path: "LLLL",
+                            whole_path: "",
                             childrens: [],
                             terminate: [
                                 "bob",
@@ -414,7 +410,7 @@ mod tests {
                 },
                 Trie {
                     directions: "RRRR",
-                    whole_path: "RRRR",
+                    whole_path: "",
                     childrens: [],
                     terminate: [
                         "alice",
@@ -436,15 +432,15 @@ mod tests {
             childrens: [
                 Trie {
                     directions: "LL",
-                    whole_path: "LL",
+                    whole_path: "",
                     childrens: [
                         Trie {
                             directions: "LL",
-                            whole_path: "LLLL",
+                            whole_path: "",
                             childrens: [
                                 Trie {
                                     directions: "L",
-                                    whole_path: "LLLLL",
+                                    whole_path: "",
                                     childrens: [],
                                     terminate: [
                                         "michel",
@@ -465,7 +461,7 @@ mod tests {
                 },
                 Trie {
                     directions: "RRRR",
-                    whole_path: "RRRR",
+                    whole_path: "",
                     childrens: [],
                     terminate: [
                         "alice",
@@ -478,7 +474,6 @@ mod tests {
         }
         "###);
 
-        println!("Right before the faulty insert");
         // splitting + appending
         trie.insert(&vec![Right, Right, Left, Left], String::from("tamo"));
         insta::assert_debug_snapshot!(trie, @r###"
@@ -488,15 +483,15 @@ mod tests {
             childrens: [
                 Trie {
                     directions: "LL",
-                    whole_path: "LL",
+                    whole_path: "",
                     childrens: [
                         Trie {
                             directions: "LL",
-                            whole_path: "LLLL",
+                            whole_path: "",
                             childrens: [
                                 Trie {
                                     directions: "L",
-                                    whole_path: "LLLLL",
+                                    whole_path: "",
                                     childrens: [],
                                     terminate: [
                                         "michel",
@@ -517,11 +512,11 @@ mod tests {
                 },
                 Trie {
                     directions: "RR",
-                    whole_path: "RR",
+                    whole_path: "",
                     childrens: [
                         Trie {
                             directions: "RR",
-                            whole_path: "RRRR",
+                            whole_path: "",
                             childrens: [],
                             terminate: [
                                 "alice",
@@ -530,7 +525,7 @@ mod tests {
                         },
                         Trie {
                             directions: "LL",
-                            whole_path: "RRLL",
+                            whole_path: "",
                             childrens: [],
                             terminate: [
                                 "tamo",
@@ -610,11 +605,11 @@ mod tests {
                         },
                         Trie {
                             directions: "R",
-                            whole_path: "LLR",
+                            whole_path: "LR",
                             childrens: [
                                 Trie {
                                     directions: "L",
-                                    whole_path: "LLRL",
+                                    whole_path: "LRL",
                                     childrens: [],
                                     terminate: [
                                         "d",
@@ -623,7 +618,7 @@ mod tests {
                                 },
                                 Trie {
                                     directions: "R",
-                                    whole_path: "LLRR",
+                                    whole_path: "LRR",
                                     childrens: [],
                                     terminate: [
                                         "e",

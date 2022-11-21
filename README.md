@@ -8,7 +8,6 @@ Your input look like that:
 ```
 tamo - RLRLR
 loic - RLLL
-louis - LRL
 kero - LRLR
 luna - LRRR
 lena - RLLR
@@ -50,7 +49,7 @@ In this case, `Tommy` and `tamo` are the only two children accessible in only tw
 
 For the second part, you need to count how many instructions it'll take to Santa go from the closest to the closest child (still in a number of instructions).
 ```
-Step 0:
+Step 0: We're at the beginning
            LL - - - - - - tommy
           /   L - - - - - chayaline, thomas
          /   /
@@ -64,7 +63,7 @@ Step 0:
      \  /
       RL - RLR - - - - -  tamo
          
-Step 1:
+Step 1: tommy was the closest
            LL - - - - - - 2 instructions
           /   L - - - - - chayaline, thomas
          /   /
@@ -78,7 +77,7 @@ Step 1:
      \  /
       RL - RLR - - - - -  tamo
 
-Step 2:
+Step 2: luna was the closest
               L - - - - - chayaline, thomas
              /
             L - R - - - - kero
@@ -91,7 +90,7 @@ Step 2:
      \  /
       RL - RLR - - - - -  tamo
       
-Step 3:
+Step 3: chayaline and thomas were the closest
               L - - - - - 9 instructions
              /
             L - R - - - - kero
@@ -104,7 +103,7 @@ Step 3:
      \  /
       RL - RLR - - - - -  tamo
       
-Step 4:
+Step 4: kero was the closest
             L - R - - - - 12 instructions
            /
       L - R
@@ -115,21 +114,21 @@ Step 4:
      \  /
       RL - RLR - - - - -  tamo
       
-Step 5:
+Step 5: tamo was the closest
            L - - - - - -  loic
 - -       /
     \    L - R - - - - -  lena
      \  /
       RL - RLR - - - - -  18 instructions
 
-Step 6:
+Step 6: loic was the closest
            L - - - - - -  22 instructions
 - -       /
     \    L - R - - - - -  lena
      \  /
       RL
       
-Step 7:
+Step 7: lena was the closest
 - -        
     \    L - R - - - - -  25 instructions
      \  /
