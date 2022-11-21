@@ -25,11 +25,12 @@ fn main() {
     println!("Part 1:");
     println!("Number of nodes: {}", trie.nb_nodes());
     println!("Depth: {}", trie.depth());
-    println!(
-        "Fastest to access: {}",
-        trie.fastest_access(&HashSet::new()).unwrap().0.terminate[0]
-    );
-    println!("First children to get his gift: {}", trie.first());
+
+    let (fast, distance) = trie.fastest_access(&HashSet::new()).unwrap();
+
+    println!("Fastest to access: {}", fast.terminate[0]);
+    println!("In {} instructions.", distance);
+    println!("Leftest children in the trie: {}", trie.first());
 
     // -------------- Part 2
     println!("Part 2:");
