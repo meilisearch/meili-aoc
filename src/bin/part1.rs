@@ -17,9 +17,11 @@ fn main() {
 
         trie.insert(&directions, name.to_string());
     }
-
     trie.finish();
+    // trie.to_graph();
 
+    println!("Number of nodes: {}", trie.nb_nodes());
+    println!("Depth: {}", trie.depth());
     println!("Fastest to access: {}", trie.fastest_access().0);
     println!("First children to get his gift: {}", trie.first());
 }

@@ -56,8 +56,7 @@ impl Ord for Trie {
 impl Trie {
     pub fn insert(&mut self, directions: &[Dir], name: String) {
         if directions.is_empty() {
-            // nice, we finished inserting our string
-            return;
+            panic!("shouldn't be called");
         }
 
         let common_prefix = longuest_prefix(&self.directions, directions);
@@ -76,6 +75,10 @@ impl Trie {
                         return;
                     }
                 }
+
+                if self.childrens.len() == 2 {
+                    panic!("error while inserting {}", name);
+                }
                 // if we reach this point it means there was not children anywhere
                 // thus we're going to create a new node just for this string.
                 self.childrens.push(Trie {
@@ -86,8 +89,8 @@ impl Trie {
             }
         } else {
             // we'll need to split ourselves into two node
-            let prefix = &self.directions[common_prefix..];
-            let suffix = &self.directions[0..common_prefix];
+            let prefix = &self.directions[0..common_prefix];
+            let suffix = &self.directions[common_prefix..];
 
             let suffix = Trie {
                 directions: suffix.to_vec(),
@@ -137,6 +140,48 @@ impl Trie {
             (s, i + 1)
         }
     }
+
+    pub fn nb_nodes(&self) -> usize {
+        1 + self.childrens.iter().map(Self::nb_nodes).sum::<usize>()
+    }
+
+    pub fn depth(&self) -> usize {
+        1 + self
+            .childrens
+            .iter()
+            .map(Self::depth)
+            .max()
+            .unwrap_or_default()
+    }
+
+    pub fn to_graph(&self) {
+        println!("digraph lol {{");
+        self._to_graph(&mut 0, 0);
+        println!("}}");
+    }
+
+    fn _to_graph(&self, node_id: &mut usize, last_node: usize) {
+        *node_id += 1;
+        let myself = *node_id;
+        println!(
+            "\t\"{}\" [label = \"{}\"]",
+            myself,
+            self.directions
+                .iter()
+                .map(|d| match d {
+                    Dir::Left => 'L',
+                    Dir::Right => 'R',
+                })
+                .collect::<String>()
+        );
+        println!("\t\"{}\" -> \"{}\"", last_node, myself);
+        for child in &self.terminate {
+            println!("\t\"{}\" -> \"{}\"", myself, child);
+        }
+        for child in &self.childrens {
+            child._to_graph(node_id, myself);
+        }
+    }
 }
 
 fn longuest_prefix(left: &[Dir], right: &[Dir]) -> usize {
@@ -171,7 +216,7 @@ mod tests {
     }
 
     #[test]
-    fn test_trie() {
+    fn test_basic_trie() {
         use Dir::*;
 
         let mut trie = Trie::default();
@@ -402,5 +447,23 @@ mod tests {
             terminate: [],
         }
         "###);
+    }
+
+    #[test]
+    fn test_trie() {
+        use Dir::*;
+
+        let mut trie = Trie::default();
+
+        trie.insert(&vec![Left, Left, Left, Left], String::from("a"));
+        trie.insert(&vec![Left, Left, Right], String::from("b"));
+        trie.insert(&vec![Left, Left, Left], String::from("c"));
+        trie.insert(&vec![Left, Right, Left], String::from("d"));
+        trie.insert(&vec![Left, Right, Right], String::from("e"));
+        trie.insert(&vec![Right, Right, Right], String::from("f"));
+
+        trie.finish();
+
+        insta::assert_debug_snapshot!(trie, @r###""###);
     }
 }
