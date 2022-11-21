@@ -147,30 +147,36 @@ impl Trie {
             .unwrap_or_else(|| self.childrens[0].first())
     }
 
-    // TODO: djikstra here
-    pub fn fastest_access(&self, mut ignored: HashSet<*const Trie>) -> Option<(&str, usize)> {
-        // println!("Called on {:p} with {:?}", self, ignored);
-        if let Some(s) = self.terminate.first() {
-            Some((s.as_ref(), 1))
-        } else {
-            ignored.insert(self as *const Trie);
-            let mut childrens: Vec<_> = self
-                .childrens
-                .iter()
-                .filter(|c| !ignored.contains(&(*c as *const Trie)))
-                .filter_map(|c| c.fastest_access(ignored.clone()))
-                .collect();
-            if let Some(parent) = self.parent {
-                if let Some(parent) = parent.fastest_access(ignored) {
-                    childrens.push(parent);
-                }
+    /// ignored nodes were already explored in another iteration and can be traversed but should
+    /// not be used as a terminal node in this iteration.
+    pub fn fastest_access(&self, ignored: &HashSet<*const Trie>) -> Option<(&Trie, usize)> {
+        // explored_nodes are the nodes we've already explored in THIS iteration.
+        let mut explored_nodes = HashSet::<*const Trie>::new();
+        // a pair of the node to explore + their distance from the beginning.
+        let mut to_explore: Vec<(&Trie, usize)> = self
+            .childrens
+            .iter()
+            .chain(self.parent)
+            .map(|node| (node, 1))
+            .collect();
+
+        loop {
+            // if there is no node left it means we've explored everything
+            let (current_node, dist) = to_explore.pop()?;
+            let current_node_addr = current_node as *const Trie;
+
+            if !current_node.terminate.is_empty() && !ignored.contains(&current_node_addr) {
+                return Some((current_node, dist));
             }
-            childrens.sort_by(|(_, l), (_, r)| l.cmp(r));
-            if let Some((s, i)) = childrens.get(0) {
-                Some((s, i + 1))
-            } else {
-                Some((self.terminate.first().map(|s| s.as_ref())?, 1))
-            }
+            explored_nodes.insert(current_node_addr);
+            to_explore.extend(
+                current_node
+                    .childrens
+                    .iter()
+                    .chain(current_node.parent)
+                    .filter(|node| !explored_nodes.contains(&(*node as *const Trie)))
+                    .map(|node| (node, dist + 1)),
+            );
         }
     }
 

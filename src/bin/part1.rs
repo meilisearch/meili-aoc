@@ -27,10 +27,24 @@ fn main() {
     println!("Depth: {}", trie.depth());
     println!(
         "Fastest to access: {}",
-        trie.fastest_access(HashSet::new()).unwrap().0
+        trie.fastest_access(&HashSet::new()).unwrap().0.terminate[0]
     );
     println!("First children to get his gift: {}", trie.first());
 
     // -------------- Part 2
     println!("Part 2:");
+    let mut current = &trie;
+    let mut ignored = HashSet::new();
+    let mut total_distance = 0;
+    loop {
+        ignored.insert(current as *const Trie);
+        if let Some((trie, dist)) = current.fastest_access(&ignored) {
+            current = trie;
+            total_distance += dist;
+            // println!("Gift to {}", current.terminate[0]);
+        } else {
+            println!("{total_distance} nodes has been covered.");
+            break;
+        }
+    }
 }
