@@ -4,6 +4,16 @@
 
 Hey @scotow,
 
+🎅 Santa needs your help once again to save this festive moment 🎄
+
+Since there are so many children every year, Santa needed a machine that creates a structure that regroups all the children's addresses with as few instructions as possible. 
+
+Santa has invested a lot in a machine called the Gift-o-tron-3000 to facilitate his gift-giving tour. 
+
+Unfortunately, the last update for the **Gift Positioning System** (GPS) feature has deteriorated its functioning. 
+
+As the CTO of Santa Inc, you are the best elf to help Santa on this critical issue since everyone else is already on vacation!
+
 Your input look like that:
 ```
 tamo - RLRLR
@@ -20,7 +30,6 @@ On the left is the name of the child that needs to get his gift.
 On the right is the path to go to his house. Each `L` means Santa needs to turn `left`, and each `R` means he needs to turn `right`.
 For example, for Santa to go to luna's house, he needs to turn `left`, `right`, `right`, and `right`.
 
-Since there are so many children every year, Santa has a machine that creates a structure that regroups all the children's addresses with as few instructions as possible. [need a big rework] 
 With the input above, this is what the structure would look like:
 ```
           LL - - - - - - tommy
@@ -38,16 +47,18 @@ With the input above, this is what the structure would look like:
          
 ```
 
-This machine has a lot of issues, sometimes it takes days to answer, and sometimes it outputs wrong results. Thus Santa has a second machine that ensures the result is correct.
-In order to work, this second machine needs to get all the paths sorted. The `left` turns first, and then the `right` turns.
+The Gift-o-tron-3000 has now a lot of issues, sometimes it takes days to answer, and sometimes it outputs wrong results. Thus you have the brilliant idea of building a new machine that ensures the result is correct.
+
+In order to work, it needs to get all the paths sorted. The `left` turns first, and then the `right` turns.
 
 Your goal is to find which child Santa can access with as few instructions as possible.
+
 In this case, `Tommy` and `tamo` are the only two children accessible in only two instructions. But since `Tommy` will appear first in the structure, he's going to get his gift first.
 
 
 --- Part2 ---
 
-For the second part, you need to count how many instructions it'll take to Santa go from the closest to the closest child (still in a number of instructions).
+For the second part, you have a brilliant improvement in mind. You need to count how many instructions it'll take to Santa go from the closest to the closest child (still in a number of instructions).
 ```
 Step 0: We're at the beginning
           LL - - - - - - tommy
