@@ -47,9 +47,10 @@ With the input above, this is what the structure would look like:
          
 ```
 
-The Gift-o-tron-3000 has now a lot of issues, sometimes it takes days to answer, and sometimes it outputs wrong results. Thus you have the brilliant idea of building a new machine that ensures the result is correct.
-
-In order to work, it needs to get all the paths sorted. The `left` turns first, and then the `right` turns.
+With the increasing number of children, this year the GPS feature became unresponsive. 
+Luckily we can provide our own algorithm to the Gift-o-tron-3000.
+But our algorithm must output its structure in the exact same order that the previous algorithm was outputting.
+While building this tree, all the paths must be sorted, the `left` turns first, and then the `right` turns.
 
 Your goal is to find which child Santa can access with as few instructions as possible.
 
