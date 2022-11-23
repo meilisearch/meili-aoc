@@ -59,7 +59,7 @@ In this case, `Tommy` and `tamo` are the only two children accessible in only tw
 
 --- Part2 ---
 
-For the second part, you have a brilliant improvement in mind. You need to count how many instructions it'll take to Santa go from the closest to the closest child (still in a number of instructions).
+For the second part, you have a brilliant improvement in mind. You're going to count how many instructions it'll take to Santa to go from the closest to the next closest child until there is no child left.
 ```
 Step 0: We're at the beginning
           LL - - - - - - tommy
