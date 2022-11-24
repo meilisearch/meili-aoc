@@ -30,7 +30,7 @@ On the left is the name of the kid that needs to get their gift.
 On the right is the path to go from Santa's home to the kids house. A `L` means Santa needs to turn `left`, and a `R` means they needs to turn `right`.
 For example, for Santa to go to luna's house, they need to turn `left`, `right`, `right`, and `right`.
 
-Unfortunately (again), Rudolph has a bad left foot, we need to prioritize turning left before he runs out of steam. (truc du style)
+Unfortunately (again), Rudolph has a bad left foot, we need to prioritize turning left before they run out of steam.
 
 With the input above, our new GPS map must looks like this:
 ```
