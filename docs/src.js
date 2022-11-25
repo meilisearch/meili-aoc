@@ -46,6 +46,8 @@ function validatePart1() {
 
     document.getElementById('success-msg-part-1').style.display = 'block';
     document.getElementById('part-2').style.display = 'block';
+
+    fathom.trackGoal('JVGWB2TP', 0);
 }
 
 function validatePart2() {
@@ -70,19 +72,21 @@ function validatePart2() {
 
     document.getElementById('success-msg-part-2').style.display = 'block';
     document.getElementById("puzzle-input-all").style.display = 'block';
+
+    fathom.trackGoal('FSMQKF95', 0);
 }
 
 function elfQuotes() {
     let quotes = [
         "I'm not sure what you're trying to do, but I'm pretty sure it's not going to work.",
-        "Feeling stuck? Try asking for hints on the <a class='discord' href='#' target='_blank'>discord event</a>!",
+        "Feeling stuck? Try asking for hints on the discord event!",
         "Jingle bell, jingle bell, jingle bell rock",
         "Snowin' and blowin' up bushels of fun",
         "Sharing is caring, so share this event with your friends!",
         "You're doing great! Keep it up!",
         "What's the best way to spread Christmas cheer? Singing loud for all to hear!",
         "You're a mean one, Mr. Grinch",
-        "Come and shares us your thoughts on the <a class='discord' href='#' target='_blank'>discord event</a>.",
+        "Come and shares us your thoughts on the discord event.",
     ]
 
     document.getElementById("text").style.display = 'block';
