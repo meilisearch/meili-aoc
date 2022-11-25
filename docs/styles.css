@@ -1,10 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 html, body { margin:0; padding:0; }
+
 body {
     background: linear-gradient(to top, #4a4969 0%,#7072ab 50%,#cd82a0 100%);
 }
 
+a {
+    color: #00ff44;
+}
+
+.discord {
+    color: #7389da;
+}
+
 #landscape {
-    z-index:-2;
+    z-index:-1;
     position: fixed;
     background: url("landscape.svg") no-repeat bottom;
     bottom:0;
@@ -13,51 +24,95 @@ body {
     height: 100%;
 }
 
-#community {
-    margin-top: 50%;
-    margin-bottom: -50%;
-    margin-left: -76px;
+#box {
+    position: relative;
+    z-index: 1 !important;
+    background-color: #1B1717;
+    width: 30%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10%;
+    margin-bottom: 2%;
+    padding: 3em;
+    border-radius: 10px;
+    color: #fff;
+    font-family: monospace;
+    font-size: 18px;
+}
+
+#footer {
+    position:relative;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 2%;
+    font-family: monospace;
+    font-size: 14px;
+    text-align: center;
+    color: #1B1717;
+}
+
+#community-btn {
+    position: fixed;
+    top:10;
+    right:10;
+    background: #7389da;
+    color: #fff;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+#community-btn:hover {
+    background: #5e72c1;
+}
+
+#community-btn > a {
+    color: #fff;
+    text-decoration:  none;
+}
+
+#community-elf {
+    display: inline-block;
+    margin-top: -78px;
+    margin-left: -98px;
 }
 
 #elf {
     background: url("elf.png") no-repeat;
-    width:32px;
-    height: 32px;
+    width:58px;
+    height: 78px;
 }
 
 #text {
+    display: none;
+    font-family: 'Press Start 2P';
     float:left;
-    margin-left:-200px;
-    line-height:32px;
-    height:32px;
+    font-size: 10px;
+    width: 160px;
+    margin-left:-180px;
+    margin-top:-80px;
+    padding: 8px;
+    line-height: 2em;
     background:#fff;
-    color: #cd82a0;
+    color: #7289da;
     border-radius:8px;
-    padding-right: 8px;
-    padding-left: 8px;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+
+#text > a {
+    color: #7289da;
+    text-decoration-style: dashed;
 }
 
 @supports (position: sticky) {
     .is-sticky {
       position: sticky;
-      top: 25%;
+      top: 50%;
     }
-}
-
-#box {
-    position: relative;
-    z-index: 9999 !important;
-    border-radius: 10px;
-    background-color: #1B1717;
-    width: 960px;
-    margin-top: 120px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 200px;
-    padding: 60px;
-    color: #fff;
-    font-family: monospace;
-    font-size: 18px;
 }
 
 pre {
@@ -69,12 +124,6 @@ pre {
     font-family: monospace;
 }
 
-/* code > em {
-    color: #00ff44;
-    text-shadow:
-        0 0 5px #00ff44;
-} */
-
 em {
     color: #ffff66;
     font-style: normal;
@@ -82,33 +131,29 @@ em {
         0 0 5px #ffff66;
 }
 
-#part-2 {
-    display:none;
-}
-
-#success-part-1, #success-part-2 {
-    display:none;
-}
-
 input {
     all: unset;
 }
 
-#error-1 {
-    display: none;
+#part-2,
+#success-msg-part-1,
+#success-msg-part-2,
+#error-1, #error-2,
+#puzzle-input-all  {
+    display:none;
 }
 
-.error {
-    margin-bottom:20px;
+.puzzle-input {
+    margin-bottom: 1.5em;
+}
+
+#puzzle-input-all {
+    margin-bottom: 0em;
 }
 
 .answer {
     padding:12px;
     background: #232323;
-}
-
-.submit{
-    color: #00ff44;
 }
 
 .submit {
@@ -119,10 +164,49 @@ input {
     cursor: pointer;
 }
 
-a {
-    color: #00ff44;
+.error {
+    margin-bottom:20px;
 }
 
-#data-3 {
-    display:none;
+.error > em {
+    color: #ff0000;
+    font-style: normal;
+    text-shadow:
+        0 0 5px #ff0000;
+}
+
+/* Device specific styles */
+
+@media all and (min-width: 1280px) and (max-width: 1920px) {
+    #box {
+        width: 60%;
+    }
+}
+
+@media all and (min-width: 480px) and (max-width: 1280px) {
+    #community-btn {
+        position: relative;
+        text-align:center;
+        width: 100%;
+        border-radius: 0px;
+        top:0;
+        right: 0;
+    }
+
+    #community-elf {
+        display: none;
+    }
+    #box {
+        width: 80%;
+    }
+}
+
+@media all and (max-width: 480px) {
+    #community-elf {
+        display: none;
+    }
+    #box {
+        width: 80%;
+        padding: 2em;
+    }
 }
