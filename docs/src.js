@@ -47,7 +47,9 @@ function validatePart1() {
     document.getElementById('success-msg-part-1').style.display = 'block';
     document.getElementById('part-2').style.display = 'block';
 
-    window.fathom.trackGoal('JVGWB2TP', 0);
+    window.addEventListener('load', (event) => {
+        fathom.trackGoal('JVGWB2TP', 0);
+    });
 }
 
 function validatePart2() {
@@ -73,7 +75,9 @@ function validatePart2() {
     document.getElementById('success-msg-part-2').style.display = 'block';
     document.getElementById("puzzle-input-all").style.display = 'block';
 
-    window.fathom.trackGoal('FSMQKF95', 0);
+    window.addEventListener('load', (event) => {
+        fathom.trackGoal('FSMQKF95', 0);
+    });
 }
 
 function elfQuotes() {
