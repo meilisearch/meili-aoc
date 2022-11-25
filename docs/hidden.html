@@ -1,22 +1,26 @@
 <html>
     <head>
         <title>Meili x AoC 2022</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div id="landscape"></div>
+        <div id="community-btn" class="is-sticky">
+            <a href="https://discord.gg/6Y4Z4Z2" target="_blank" onclick="fathom.trackGoal('5RQIXUF8', 0);">Join the Discord event!</a>
+        </div>
         <div id="box">
-            <div id="community" class="is-sticky">
-                <div id="text">Join our Discord!</div>
+            <div id="community-elf" class="is-sticky">
+                <div id="text"></div>
                 <div id="elf"></div>
             </div>
 
             <div id="part-1">
-                --- Day Meili --- <br><br>
+                --- SOS GPS --- <br><br>
 
-                Hey @scotow, <br><br>
+                Hey fellow, <br><br>
 
-                🎅 Santa needs your help once again to save this festive moment 🎄<br><br>
+                <i>Santa needs your help once again to save this festive moment</i><br><br>
 
                 Since there are so many children every year, Santa needed a machine that creates a structure that regroups all the children's addresses with as few instructions as possible.<br><br>
 
@@ -69,15 +73,17 @@ o      /
 
                 In this case, <em>tommy</em> and <em>tamo</em> are the only two children accessible in only two instructions. But since <em>tommy</em> will appear first in the structure, he's going to get his gift first. <br><br>
 
-                <br><br><br><br><span id="data-1">To begin, <a class="link" href="#">get your puzzle input</a>.<br><br></span>
+                <div id="puzzle-input-1" class="puzzle-input">
+                    To begin, <a class="link" href="#">get your puzzle input</a>.
+                </div>
 
                 <div id="error-1" class="error"></div>
-                <div id="inputs-1">
+                <div id="input-group-1">
                     <input id="answer-1" class="answer" type="text" placeholder="Answer" />
                     <input id="submit-1" class="submit" type="submit" value="[SUBMIT]" />
                 </div>
 
-                <p id="success-part-1">BRAVO!</p>
+                <p id="success-msg-part-1">BRAVO!</p>
             </div>
 
             <div id="part-2">
@@ -185,21 +191,31 @@ o      /
 
                 <br>
 
-                Here, all gifts have been delivered in <em>21</em> instructions. 🎁🎄
+                Here, all gifts have been delivered in <em>21</em> instructions.<br><br>
 
-                <br><br><br><br><span id="data-2">To begin, <a class="link" href="#">get your puzzle input</a>.<br><br></span>
+                <div id="puzzle-input-2" class="puzzle-input">
+                    To begin, <a class="link" href="#">get your puzzle input</a>.
+                </div>
 
                 <div id="error-2" class="error"></div>
-                <div id="inputs-2">
+                <div id="input-group-2">
                     <input id="answer-2" class="answer" type="text" placeholder="Answer" />
                     <input id="submit-2" class="submit" type="submit" value="[SUBMIT]" />
                 </div>
 
-                <p id="success-part-2">BRAVO TAMO!</p>
+                <p id="success-msg-part-2">BRAVO TAMO!</p>
 
-                <span id="data-3">If you still want to see it, <a class="link" href="#">you can get your puzzle input</a>.</span>
+                <div id="puzzle-input-all" class="puzzle-input">
+                    If you still want to see it, <a class="link" target="_blank" href="#">you can get your puzzle input</a>.
+                </div>
             </div>
         </div>
+
+        <div id="footer">
+            Carefully engineered by meilisearch elves.
+        </div>
+
+        <script src="https://cdn.usefathom.com/script.js" data-site="GEAPAUAA" defer></script>
         <script type="text/javascript" src="src.js"></script>
         <script type="text/javascript" src="snowstorm.js"></script>
     </body>
