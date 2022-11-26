@@ -49,7 +49,8 @@ With the input above, our new GPS map must looks like this:
          
 ```
 
-As a first step, your goal is to find which kid Santa can access with as few instructions as possible.
+The reinders will make a stop everytime there is an intersection.
+Your goal is to find which kid Santa can access with as few instructions as possible.
 
 In the above case, `Tommy` and `tamo` are the only two kids accessible in only two instructions. But since `Tommy` will appear first in the structure, he's going to get his gift first.
 
@@ -58,14 +59,14 @@ In the above case, `Tommy` and `tamo` are the only two kids accessible in only t
 
 You are able to find the closests kids! But what about the others? The old GPS system became so slow that we would not have been able to deliver all the gifts on time!
 
-For the second part, you need to count how many stops it'll take to Santa to go from the closest to the next closest kid until there is no kids remaining.
+Now, you need to count how many stops it'll take to Santa to go from the closest to the next closest kid until there is no kids remaining.
 
 Even kids in Antartica must recieve their well deserved gifts!
 
 The number of stops helps us knowing how many carrots Santa must bring along to fuel the reins. For every stop, all of the 4 reins needs 1 carrot, but rudolph need 3 because he is a star ✨ and because apparently "his left foot hurts".
 
 ```
-Step 0: We're at the beginning
+Step 0: We're at Santa house
           LL - - - - - - tommy
          /   L - - - - - chayaline, thomas
         /   /
@@ -79,8 +80,8 @@ Step 0: We're at the beginning
     \  /
      RL - RLR - - - - -  tamo
          
-Step 1: tommy was the closest, 2 instructions away.
-          LL - - - - - - 2 instructions
+Step 1: tommy was the closest, 2 stops away.
+          LL - - - - - - 2 stops in total
          /   L - - - - - chayaline, thomas
         /   /
        /   L - R - - - - kero
@@ -93,12 +94,12 @@ Step 1: tommy was the closest, 2 instructions away.
     \  /
      RL - RLR - - - - -  tamo
 
-Step 2: luna was the closest, 3 instructions away.
+Step 2: luna was the closest, 3 stops away.
              L - - - - - chayaline, thomas
             /
            L - R - - - - kero
           /
-     L - R - RR - - - -  5 instructions
+     L - R - RR - - - -  5 stops in total
     /    
    /      L - - - - - -  loic
   o      /
@@ -106,8 +107,8 @@ Step 2: luna was the closest, 3 instructions away.
     \  /
      RL - RLR - - - - -  tamo
       
-Step 3: chayaline and thomas were the closest, 3 instructions away.
-             L - - - - - 8 instructions
+Step 3: chayaline and thomas were the closest, 3 stops away.
+             L - - - - - 8 stops in total
             /
            L - R - - - - kero
           /
@@ -119,8 +120,8 @@ Step 3: chayaline and thomas were the closest, 3 instructions away.
     \  /
      RL - RLR - - - - -  tamo
       
-Step 4: kero was the closest, 2 instructions away.
-           L - R - - - - 10 instructions
+Step 4: kero was the closest, 2 stops away.
+           L - R - - - - 10 stops in total
           /
      L - R
     /    
@@ -130,23 +131,23 @@ Step 4: kero was the closest, 2 instructions away.
     \  /
      RL - RLR - - - - -  tamo
       
-Step 5: tamo was the closest, 6 instructions away
+Step 5: tamo was the closest, 6 stops away
           L - - - - - -  loic
   o      /
    \    L - R - - - - -  lena
     \  /
-     RL - RLR - - - - -  16 instructions
+     RL - RLR - - - - -  16 stops in total
 
-Step 6: loic was the closest, 3 instructions away.
-          L - - - - - -  19 instructions
+Step 6: loic was the closest, 3 stops away.
+          L - - - - - -  19 stops in total
   o      /
    \    L - R - - - - -  lena
     \  /
      RL
       
-Step 7: lena was the closest, 2 instructions away.
+Step 7: lena was the closest, 2 stops away.
   o        
-   \    L - R - - - - -  21 instructions
+   \    L - R - - - - -  21 stops in total
     \  /
      RL
 ```

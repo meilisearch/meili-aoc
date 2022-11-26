@@ -25,7 +25,6 @@ document.getElementById('submit-2').onclick = function() {
 };
 
 function validatePart1() {
-    valid = '1234'; //TODO change this
     var answer = document.getElementById('answer-1').value;
 
     if (answer == '') {
@@ -34,7 +33,7 @@ function validatePart1() {
         return;
     }
 
-    if (answer != '1234') {
+    if (answer != '1234' || answer != 'bearach') {
         document.getElementById("error-1").style.display = 'block';
         document.getElementById("error-1").innerHTML = errorPrompt + `<br><br>(You guessed: <em>${answer}</em>)`;
         return;
@@ -52,7 +51,6 @@ function validatePart1() {
 }
 
 function validatePart2() {
-    valid = "4321"; //TODO change this
     var answer = document.getElementById('answer-2').value;
 
     if (answer == '') {
@@ -61,7 +59,7 @@ function validatePart2() {
         return;
     }
 
-    if (answer != '4321') {
+    if (answer != '4321' | answer != '37371') {
         document.getElementById("error-2").style.display = 'block';
         document.getElementById("error-2").innerHTML = errorPrompt + `<br><br>(You guessed: <em>${answer}</em>)`
         return;

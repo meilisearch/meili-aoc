@@ -23,17 +23,17 @@
 
                 <i>Santa needs your help once again to save this festive moment</i><br><br>
 
-                Since there are so many children every year, Santa needed a machine that creates a structure that regroups all the children's addresses with as few instructions as possible.<br><br>
+                Since there are so many kids every year, Santa needed a machine that creates a route to go from santa's house to any kids adresse in an efficient way. To do so, he bought the <em>Gift-o-tron-3000</em> machine. Santa could already see it! With all that time saved, they'll be able to enjoy many more cookies left by the kids, and finish a glass of milk or two as well! The perfect Christmas all around... Or so it should have been.<br><br>
 
-                Santa has invested a lot in a machine called the <em>Gift-o-tron-3000</em> to facilitate his gift-giving tour.<br><br>
+                Unfortunately, the mean, shady and sly elf merchant of this machine, "forgot" to mention that the <em>Gift Positioning System</em> (GPS) of the machine  significantly slows down with the number of kids increasing.<br><br>
 
-                Unfortunately, the last update for the <em>**Gift Positioning System** (GPS)</em> feature has deteriorated its functioning.<br><br>
+                Luckily, we can provide our own GPS algorithm in the <em>Gift-o-tron-3000</em>. Lucky indeed, you know your way around a code. They don't call you the sharpest coder of the North Pole for nothing!<br><br>
 
-                As the CTO of Santa Inc, you are the best elf to help Santa on this critical issue since everyone else is already on vacation!<br><br>
+                All the kids of the world and Santa themself are counting on you! Let operation <em>SOS GPS</em> begin ✨<br><br>
 
-                Your input look like that:<br><br>
+                The kids adress list looks like that:<br><br>
                 <pre><code>tamo - RLRLR
-loic - <em>RLLL</em>
+loic - RLLL
 kero - LRLR
 luna - LRRR
 lena - RLLR
@@ -43,12 +43,13 @@ chayaline - LRLL</code></pre>
 
                 <br>
 
-                On the left is the name of the child that needs to get his gift.<br>
-                On the right is the path to go to his house. Each <em>L</em> means Santa needs to turn <em>left</em>, and each <em>R</em> means he needs to turn <em>right</em>. <br><br>
+                On the left is the name of the kid that needs to get their gift.
+                On the right is the path to go from Santa's home to the kids house. A <em>L</em> means Santa needs to turn <em>left</em>, and a <em>R</em> means they needs to turn <em>right</em>.
+                For example, for Santa to go to luna's house, they need to turn <em>left</em>, <em>right</em>, <em>right</em>, and <em>right</em>.
 
-                For example, for Santa to go to luna's house, he needs to turn <em>left</em>, <em>right</em>, <em>right</em>, and <em>right</em>.<br><br>
+                Unfortunately (again), Rudolph has a bad left foot, <em>we need to prioritize turning left before they run out of steam</em>.
 
-                With the input above, this is what the structure would look like:<br><br>
+                With the input above, our new <em>GPS</em> map must looks like this:
 
                 <pre><code>
        LL - - - - - - tommy
@@ -63,16 +64,12 @@ o      /
  \    L - R - - - - -  lena
   \  /
    RL - RLR - - - - -  tamo</code></pre>
-
                 <br>
 
-                The <em>Gift-o-tron-3000</em> has now a lot of issues, sometimes it takes days to answer, and sometimes it outputs wrong results. Thus you have the brilliant idea of building a new machine that ensures the result is correct.<br><br>
+                The reinders will make a stop everytime there is an intersection.<br><br>
+                <em>Your goal is to find which kid Santa can access with as few stops as possible</em>.
 
-                In order to work, it needs to get all the paths sorted. The <em>left</em> turns first, and then the <em>right</em> turns. <br><br>
-
-                Your goal is to find which child Santa can access with as few instructions as possible. <br><br>
-
-                In this case, <em>tommy</em> and <em>tamo</em> are the only two children accessible in only two instructions. But since <em>tommy</em> will appear first in the structure, he's going to get his gift first. <br><br>
+                In the above case, <em>Tommy</em> and <em>tamo</em> are the only two kids accessible in only two stops. But since <em>Tommy</em> will appear first in the structure, he's going to get his gift first.
 
                 <div id="puzzle-input-1" class="puzzle-input">
                     To begin, <a class="link" href="#">get your puzzle input</a>.
@@ -84,115 +81,114 @@ o      /
                     <input id="submit-1" class="submit" type="submit" value="[SUBMIT]" />
                 </div>
 
-                <p id="success-msg-part-1">BRAVO!</p>
+                <p id="success-msg-part-1"><em>BRAVO!</em></p>
             </div>
 
             <div id="part-2">
 
-                --- Part2 --- <br><br>
+            --- Part2 --- <br><br>
 
-                For the second part, you have a brilliant improvement in mind. You need to count how many instructions it'll take to Santa go from the closest to the closest child (still in a number of instructions). <br><br>
+            You are able to find the closests kids! But what about the others? The old GPS system became so slow that we would not have been able to deliver all the gifts on time!<br><br>
+
+            <em>Now, you need to count how many stops it'll take to Santa to go from the closest to the next closest kid until there is no kids remaining.</em><br><br>
+
+            Even kids in Antartica must recieve their well deserved gifts!
+
+            The number of stops helps us knowing how many carrots Santa must bring along to fuel the reins. <br><br>
+            For every stop, all of the 4 reins needs 1 carrot, but rudolph need 3 because he is a star ✨ and because apparently "his left foot hurts".<br><br>
+            <em>Ignore the previous line for now and only returns the number of stops Santa needs to do<em>
 
                 <pre>
-                    <code>
-                        Step 0: We're at the beginning
+                    <code><em>Step 0</em>: We're at Santa house
+          LL - - - - - - tommy
+         /   L - - - - - chayaline, thomas
+        /   /
+       /   L - R - - - - kero
+      /   /
+     L - R - RR - - - -  luna
+    /    
+   /      L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  tamo
+         
+<em>Step 1</em>: <em>tommy</em> was the closest, <em>2 stops away</em>.
+          LL - - - - - - <em>2 stops in total</em>
+         /   L - - - - - chayaline, thomas
+        /   /
+       /   L - R - - - - kero
+      /   /
+     L - R - RR - - - -  luna
+    /    
+   /      L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  tamo
 
-                                LL - - - - - - tommy
-                                /   L - - - - - chayaline, thomas
-                                /   /
-                            /   L - R - - - - kero
-                            /   /
-                            L - R - RR - - - -  luna
-                            /
-                        /      L - - - - - -  loic
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL - RLR - - - - -  tamo
+<em>Step 2</em>: <em>luna</em> was the closest, <em>3 stops away</em>.
+             L - - - - - chayaline, thomas
+            /
+           L - R - - - - kero
+          /
+     L - R - RR - - - -  <em>5 stops in total</em>
+    /    
+   /      L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  tamo
+      
+<em>Step 3</em>: <em>chayaline and thomas</em> were the closest, <em>3 stops away</em>.
+             L - - - - - <em>8 stops in total</em>
+            /
+           L - R - - - - kero
+          /
+     L - R
+    /    
+   /      L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  tamo
+      
+<em>Stop 4</em>: kero was the closest, <em>2 stops away</em>.
+           L - R - - - - <em>10 stops in total</em>
+          /
+     L - R
+    /    
+   /      L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  tamo
+      
+<em>Step 5</em>: <em>tamo</em> was the closest, <em>6 stops away</em>
+          L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  <em>16 stops in total</em>
 
-                        Step 1: tommy was the closest, 2 instructions away.
-
-                                LL - - - - - - 2 instructions
-                                /   L - - - - - chayaline, thomas
-                                /   /
-                            /   L - R - - - - kero
-                            /   /
-                            L - R - RR - - - -  luna
-                            /
-                        /      L - - - - - -  loic
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL - RLR - - - - -  tamo
-
-                        Step 2: luna was the closest, 3 instructions away.
-
-                                    L - - - - - chayaline, thomas
-                                    /
-                                L - R - - - - kero
-                                /
-                            L - R - RR - - - -  5 instructions
-                            /
-                        /      L - - - - - -  loic
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL - RLR - - - - -  tamo
-
-                        Step 3: chayaline and thomas were the closest, 3 instructions away.
-
-                                    L - - - - - 8 instructions
-                                    /
-                                L - R - - - - kero
-                                /
-                            L - R
-                            /
-                        /      L - - - - - -  loic
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL - RLR - - - - -  tamo
-
-                        Step 4: kero was the closest, 2 instructions away.
-
-                                L - R - - - - 10 instructions
-                                /
-                            L - R
-                            /
-                        /      L - - - - - -  loic
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL - RLR - - - - -  tamo
-
-                        Step 5: tamo was the closest, 6 instructions away.
-
-                                L - - - - - -  loic
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL - RLR - - - - -  16 instructions
-
-                        Step 6: loic was the closest, 3 instructions away.
-
-                                L - - - - - -  19 instructions
-                        - o      /
-                        \    L - R - - - - -  lena
-                            \  /
-                            RL
-
-                        Step 7: lena was the closest, 2 instructions away.
-
-                        - o
-                        \    L - R - - - - -  21 instructions
-                            \  /
-                            RL
+<em>Step 6</em>: <em>loic</em> was the closest, <em>3 stops away</em>.
+          L - - - - - -  <em>19 stops in total</em>
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL
+      
+<em>Step 7</em>: <em>lena</em> was the closest, <em>2 stops away</em>.
+  o        
+   \    L - R - - - - -  <em>21 stops in total</em>
+    \  /
+     RL
                     </code>
                 </pre>
 
                 <br>
 
-                Here, all gifts have been delivered in <em>21</em> instructions.<br><br>
+stopsHere, all gifts have been delivered in <em>21</em> stops.<br><br>
 
                 <div id="puzzle-input-2" class="puzzle-input">
                     To begin, <a class="link" href="#">get your puzzle input</a>.
