@@ -59,7 +59,9 @@ In the above case, `tommy` and `tamo` are the only kids accessible in two instru
 You are able to find the closest kids! But what about the others? The old GPS became so slow that we would not have been able to deliver all the gifts on time!
 Now, you need to count how many stops it'll take Santa to go from the closest to the next closest kid until there are no kids remaining.
 Even kids in Antarctica must receive their well deserved gifts!
-The number of stops helps us know how many carrots Santa must bring along to fuel the reindeer.
+
+**You need to find how many stops Santa will make.**
+The number of stops will help Santa know how many carots they needs to bring for their dear reindeers.
 
 ```
 Step 0: We're at Santa's house
