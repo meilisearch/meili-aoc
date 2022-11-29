@@ -9,7 +9,6 @@ Santa could already see it! Using all the saved time to enjoy more cookies and a
 Or so it should have been.
 
 Unfortunately, the shady elf merchant of this machine "forgot" to mention that the **Gift Positioning System** (GPS) of the machine significantly slows down with the number of kids increasing.
-
 Luckily, we can provide our own GPS algorithm to the Gift-o-tron-3000! Lucky indeed, you know your way around code. They don't call you the sharpest coder of the North Pole for nothing!
 
 All the kids of the world and Santa themself are counting on you! Let operation SOS GPS begin ✨

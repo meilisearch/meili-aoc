@@ -131,6 +131,13 @@ em {
         0 0 5px #ffff66;
 }
 
+.white {
+    color: #e8e8e8;
+    text-shadow:
+        0 0 5px #ffffff;
+
+}
+
 input {
     all: unset;
 }
