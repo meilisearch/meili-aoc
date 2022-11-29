@@ -61,7 +61,7 @@ Now, you need to count how many stops it'll take Santa to go from the closest to
 Even kids in Antarctica must receive their well deserved gifts!
 
 **You need to find how many stops Santa will make.**
-The number of stops will help Santa know how many carots they needs to bring for their dear reindeers.
+The number of stops will help Santa know how many carrots they needs to bring for their dear reindeer.
 
 ```
 Step 0: We're at Santa's house
