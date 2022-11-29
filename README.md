@@ -150,4 +150,4 @@ Step 7: lena is the closest, 2 stops away.
 ```
 
 In the example above, we have 21 stops.
-Don't forget: If two kids are at the same distance, you need to deliver your gift to the kid that's more to the left from Santa's house.
+Don't forget: If two kids are at the same distance, you need to deliver your gift to the kid that's more to the left of Santa's house.
