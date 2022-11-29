@@ -2,19 +2,19 @@
 
 --- Day Meili ---
 
-Hey @scotow,
-
 🎅 Santa needs your help once again to save this festive moment 🎄
 
-Since there are so many kids every year, Santa needed a machine that creates a route to go from santa's house to any kids adresse in an efficient way. To do so, he bought the Gift-o-tron-3000 machine. Santa could already see it! With all that time saved, they'll be able to enjoy many more cookies left by the kids, and finish a glass of milk or two as well! The perfect Christmas all around... Or so it should have been.
+With the world population officially hitting 8 billion people, Santa's job isn't getting easier. Enter the ✨Gift-o-tron-3000✨
+Santa could already see it! Using all the saved time to enjoy many more cookies left by the kids, and maybe finish a glass of milk or two as well! The perfect Christmas all around...
+Or so it should have been.
 
-Unfortunately, the mean, shady and sly elf merchant of this machine, "forgot" to mention that the **Gift Positioning System** (GPS) of the machine  significantly slows down with the number of kids increasing.
+Unfortunately, the shady elf merchant of this machine, "forgot" to mention that the **Gift Positioning System** (GPS) of the machine  significantly slows down with the number of kids increasing.
 
-Luckily, we can provide our own GPS algorithm in the Gift-o-tron-3000. Lucky indeed, you know your way around a code. They don't call you the sharpest coder of the North Pole for nothing!
+Luckily, we can provide our own GPS algorithm to the Gift-o-tron-3000! Lucky indeed, you know your way around code. They don't call you the sharpest coder of the North Pole for nothing!
 
 All the kids of the world and Santa themself are counting on you! Let operation SOS GPS begin ✨
 
-The kids adress list looks like that:
+The kids address list looks as follows:
 ```
 tamo - RLRLR
 loic - RLLL
@@ -49,21 +49,18 @@ With the input above, our new GPS map must looks like this:
          
 ```
 
-The reinders will make a stop everytime there is an intersection.
-Your goal is to find which kid Santa can access with as few instructions as possible.
+The reindeer will make a stop everytime there is an intersection.
+Your goal is to find which kid Santa can get to with as few instructions as possible and gives his name.
 
-In the above case, `Tommy` and `tamo` are the only two kids accessible in only two instructions. But since `Tommy` will appear first in the structure, he's going to get his gift first.
+In the above case, `tommy` and `tamo` are the only kids accessible in two instructions. But since `tommy` will appear first in the structure, he's going to get his gift first.
 
 
 --- Part2 ---
 
-You are able to find the closests kids! But what about the others? The old GPS system became so slow that we would not have been able to deliver all the gifts on time!
-
-Now, you need to count how many stops it'll take to Santa to go from the closest to the next closest kid until there is no kids remaining.
-
-Even kids in Antartica must recieve their well deserved gifts!
-
-The number of stops helps us knowing how many carrots Santa must bring along to fuel the reins. For every stop, all of the 4 reins needs 1 carrot, but rudolph need 3 because he is a star ✨ and because apparently "his left foot hurts".
+You are able to find the closest kids! But what about the others? The old GPS system became so slow that we would not have been able to deliver all the gifts on time!
+Now, you need to count how many stops it'll take Santa to go from the closest to the next closest kid until there are no kids remaining.
+Even kids in Antarctica must receive their well deserved gifts!
+The number of stops helps us know how many carrots Santa must bring along to fuel the reins.
 
 ```
 Step 0: We're at Santa house
@@ -80,7 +77,7 @@ Step 0: We're at Santa house
     \  /
      RL - RLR - - - - -  tamo
          
-Step 1: tommy was the closest, 2 stops away.
+Step 1: tommy is the closest, 2 stops away.
           LL - - - - - - 2 stops in total
          /   L - - - - - chayaline, thomas
         /   /
@@ -94,7 +91,7 @@ Step 1: tommy was the closest, 2 stops away.
     \  /
      RL - RLR - - - - -  tamo
 
-Step 2: luna was the closest, 3 stops away.
+Step 2: luna is the closest, 3 stops away.
              L - - - - - chayaline, thomas
             /
            L - R - - - - kero
@@ -107,7 +104,7 @@ Step 2: luna was the closest, 3 stops away.
     \  /
      RL - RLR - - - - -  tamo
       
-Step 3: chayaline and thomas were the closest, 3 stops away.
+Step 3: chayaline and thomas are the closest, 3 stops away.
              L - - - - - 8 stops in total
             /
            L - R - - - - kero
@@ -120,7 +117,7 @@ Step 3: chayaline and thomas were the closest, 3 stops away.
     \  /
      RL - RLR - - - - -  tamo
       
-Step 4: kero was the closest, 2 stops away.
+Step 4: kero is the closest, 2 stops away.
            L - R - - - - 10 stops in total
           /
      L - R
@@ -131,28 +128,26 @@ Step 4: kero was the closest, 2 stops away.
     \  /
      RL - RLR - - - - -  tamo
       
-Step 5: tamo was the closest, 6 stops away
+Step 5: tamo is the closest, 6 stops away
           L - - - - - -  loic
   o      /
    \    L - R - - - - -  lena
     \  /
      RL - RLR - - - - -  16 stops in total
 
-Step 6: loic was the closest, 3 stops away.
+Step 6: loic is the closest, 3 stops away.
           L - - - - - -  19 stops in total
   o      /
    \    L - R - - - - -  lena
     \  /
      RL
       
-Step 7: lena was the closest, 2 stops away.
+Step 7: lena is the closest, 2 stops away.
   o        
    \    L - R - - - - -  21 stops in total
     \  /
      RL
 ```
 
-In the example above, we have 21 stops, which means 6 carrots times 21.
-
-The final solution would be 126 carrots.
-
+In the example above, we have 21 stops.
+If two childs are at the same distance, don't forget you need to deliver your gift to the child that's the more to the left when seeing from Santa's house.
