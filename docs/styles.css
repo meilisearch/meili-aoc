@@ -244,12 +244,19 @@ input {
 
 @media all and (min-width: 1440px) and (max-width: 1920px) {
     #community-btn {
-        position: relative;
+        position: sticky;
+        z-index: 9999;
         text-align:center;
         width: 100%;
         border-radius: 0px;
         top:0;
         right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
     }
     #box {
         width: 60%;
@@ -257,12 +264,19 @@ input {
 }
 @media all and (min-width: 1280px) and (max-width: 1440px) {
     #community-btn {
-        position: relative;
+        position: sticky;
+        z-index: 9999;
         text-align:center;
         width: 100%;
         border-radius: 0px;
         top:0;
         right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
     }
     #box {
         width: 60%;
@@ -270,12 +284,19 @@ input {
 }
 @media all and (min-width: 480px) and (max-width: 1280px) {
     #community-btn {
-        position: relative;
+        position: sticky;
+        z-index: 9999;
         text-align:center;
         width: 100%;
         border-radius: 0px;
         top:0;
         right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
     }
     #community-elf {
         display: none;
@@ -291,12 +312,19 @@ input {
 
 @media all and (max-width: 480px) {
     #community-btn {
-        position: relative;
+        position: sticky;
+        z-index: 9999;
         text-align:center;
         width: 100%;
         border-radius: 0px;
         top:0;
         right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
     }
     #community-elf {
         display: none;
