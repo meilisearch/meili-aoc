@@ -12,8 +12,8 @@
  * -------------
  */
 
-let discordEventUrl = "#"; //TODO change this
-let errorPrompt = `That's not the right answer. If you're stuck, make sure you're using the full input data; you can ask for hints on the <a class="discord" href=${discordEventUrl} target="_blank"> discord event</a>.`;
+let discordEventUrl = "https://discord.gg/meilisearch";
+let errorPrompt = `That's not the right answer. If you're stuck, make sure you're using the full input data; you can ask for hints on the <a class="discord" href=${discordEventUrl} target="_blank" onclick="fathom.trackGoal('5RQIXUF8', 0);"> discord event</a>.`;
 let requiredInput = "Uh-oh... we need something to make the answer-o-tron work!";
 
 document.getElementById('submit-1').onclick = function() {
@@ -33,7 +33,7 @@ function validatePart1() {
         return;
     }
 
-    if (!(answer == '1234' || answer == 'bearach')) {
+    if (!(answer == 'bearach')) {
         document.getElementById("error-1").style.display = 'block';
         document.getElementById("error-1").innerHTML = errorPrompt + `<br><br>(You guessed: <em>${answer}</em>)`;
         return;
@@ -59,7 +59,7 @@ function validatePart2() {
         return;
     }
 
-    if (!(answer == '4321' | answer == '37371')) {
+    if (!(answer == '37371')) {
         document.getElementById("error-2").style.display = 'block';
         document.getElementById("error-2").innerHTML = errorPrompt + `<br><br>(You guessed: <em>${answer}</em>)`
         return;
@@ -81,6 +81,7 @@ function elfQuotes() {
         "Feeling stuck? Try asking for hints on the discord event!",
         "Jingle bell, jingle bell, jingle bell rock",
         "Snowin' and blowin' up bushels of fun",
+        "++[---------->+<]>.>--[----->+<]>-.+++++++++++++..+++++++.-[---->+<]>++.+[->++<]>+.+[-->+++<]>++.++++++++++.---------.++++++++++.+.-------.------------.--[--->+<]>--.",
         "Sharing is caring, so share this event with your friends!",
         "You're doing great! Keep it up!",
         "What's the best way to spread Christmas cheer? Singing loud for all to hear!",

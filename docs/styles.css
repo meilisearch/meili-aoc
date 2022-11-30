@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-html, body { margin:0; padding:0; }
+html, body { margin:0; padding:0; width:100%; overflow-x: clip; }
 
 body {
     background: linear-gradient(to top, #4a4969 0%,#7072ab 50%,#cd82a0 100%);
@@ -28,7 +28,7 @@ a {
     position: relative;
     z-index: 1 !important;
     background-color: #1B1717;
-    width: 30%;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     margin-top: 10%;
@@ -42,6 +42,7 @@ a {
 
 #footer {
     position:relative;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 2%;
@@ -51,25 +52,81 @@ a {
     color: #1B1717;
 }
 
+#footer > a {
+    color: #1B1717;
+    font-weight: bold;
+}
+
 #community-btn {
     position: fixed;
-    top:10;
-    right:10;
-    background: #7389da;
+    display:block;
+    text-align:center;
+    top:20;
+    right:20;
+    background: #1B1717;
     color: #fff;
     padding: 20px;
     font-size: 18px;
-    border-radius: 5px;
+    border-radius: 10px;
     font-family: monospace;
-}
-
-#community-btn:hover {
-    background: #5e72c1;
-}
-
-#community-btn > a {
-    color: #fff;
     text-decoration:  none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    outline:none;
+}
+
+#community-btn:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+#community-btn:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
 }
 
 #community-elf {
@@ -101,6 +158,7 @@ a {
     transform: perspective(1px) translateZ(0);
     -webkit-transform-origin: 0 100%;
     transform-origin: 0 100%;
+    word-wrap: break-word;
 }
 
 #text > a {
@@ -184,36 +242,108 @@ input {
 
 /* Device specific styles */
 
-@media all and (min-width: 1280px) and (max-width: 1920px) {
-    #box {
-        width: 60%;
-    }
-}
-
-@media all and (min-width: 480px) and (max-width: 1280px) {
+@media all and (min-width: 1440px) and (max-width: 1920px) {
     #community-btn {
-        position: relative;
+        position: sticky;
+        z-index: 9999;
         text-align:center;
         width: 100%;
         border-radius: 0px;
         top:0;
         right: 0;
     }
-
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
+    }
+    #box {
+        width: 60%;
+    }
+}
+@media all and (min-width: 1280px) and (max-width: 1440px) {
+    #community-btn {
+        position: sticky;
+        z-index: 9999;
+        text-align:center;
+        width: 100%;
+        border-radius: 0px;
+        top:0;
+        right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
+    }
+    #box {
+        width: 60%;
+    }
+}
+@media all and (min-width: 480px) and (max-width: 1280px) {
+    #community-btn {
+        position: sticky;
+        z-index: 9999;
+        text-align:center;
+        width: 100%;
+        border-radius: 0px;
+        top:0;
+        right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
+    }
     #community-elf {
         display: none;
     }
     #box {
         width: 80%;
     }
+    input[type="submit"]{
+        margin-top: 20px;
+        display:block;
+    }
 }
 
 @media all and (max-width: 480px) {
+    #community-btn {
+        position: sticky;
+        z-index: 9999;
+        text-align:center;
+        width: 100%;
+        border-radius: 0px;
+        top:0;
+        right: 0;
+    }
+    #community-btn:after {
+        border-radius: 0px;
+    }
+    #community-btn:before {
+        border-radius: 0px;
+    }
     #community-elf {
         display: none;
     }
     #box {
         width: 80%;
         padding: 2em;
+        margin-bottom: 20%;
+        border-radius:0px;
+    }
+    #footer {
+        margin-bottom:20%;
+        color: #fff;
+    }
+    #footer > a {
+        color: #fff;
+    }
+    input[type="submit"]{
+        margin-top: 20px;
+        display:block;
     }
 }
