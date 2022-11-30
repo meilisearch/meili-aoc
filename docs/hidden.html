@@ -23,7 +23,7 @@
 
                 <i>🎅 Santa needs your help once again to save this festive moment 🎄</i><br><br>
 
-                With the world population officially hitting 8 billion people, Santa's job isn't getting easier. Enter the ✨<em>Gift-o-tron-3000</em>✨
+                With the world population officially hitting 8 billion people, Santa's job isn't getting easier. Enter the ✨<em>Gift-o-tron-3000</em>✨.<br/>
                 Santa could already see it! Using all the saved time to enjoy more cookies and a few extra glasses of milk left by the kids! The perfect Christmas all around...
                 Or so it should have been.<br><br>
 
@@ -68,13 +68,16 @@ chayaline - LRLL</code></pre>
      <em class="white">RL</em> - <em class="white">RLR</em> - - - - -  tamo</code></pre>
                 <br>
 
-                The reindeer will make a stop every time there is an intersection.
-                Your goal is to find which kid Santa can get to with as few instructions as possible and gives his name.<br/><br/>
+                Notice how some nodes are collapsed together? That's the important part; it will define how many stops Santa's reindeer needs to make. Basically, one per node.<br/>
+                <em>Your goal is to find which kid Santa can get to with as few stops as possible and gives his name.</em><br/><br/>
 
-                In the above case, <em>tommy</em> and <em>tamo</em> are the only kids accessible in two instructions. But since <em>tommy</em> will appear first in the structure, he gets his gift first.
+                In the above case, <em>tommy</em> and <em>tamo</em> are the only kids accessible in two instructions. But since <em>tommy</em> appear first in the structure, he gets his gift first.<br/>
+                To determine who is first in the structure, you must use the <a href="https://doc.rust-lang.org/stable/std/cmp/trait.Ord.html#lexicographical-comparison">lexicographical comparison</a> between their path.
+                In this case, LLL appears before RLRLR. In case a path is a subset of another, the shorter wins.
 
                 <div id="puzzle-input-1" class="puzzle-input">
-                    To begin, <a class="link" href="input">get your puzzle input</a>.
+                   <br/><br/>
+                   To begin, <a class="link" href="input">get your puzzle input</a>.
                 </div>
 
                 <div id="error-1" class="error"></div>
@@ -96,7 +99,7 @@ chayaline - LRLL</code></pre>
             Even kids in Antarctica must receive their well deserved gifts!<br/><br/>
 
             <em>You need to find how many stops Santa will make.</em>
-            The number of stops will help Santa know how many carots they needs to bring for their dear reindeers.<br/><br/>
+            The number of stops will help Santa know how many carrots they needs to bring for their beloved reindeers.<br/><br/>
 
             <pre><code>Step 0: We're at Santa house
            <em class="white">LL</em> - - - - - - tommy
@@ -202,9 +205,10 @@ Step 8: <em class="white">lena</em> is the closest, 2 stops away.
                 <br/>
 
                 In the example above, we have 21 stops in total.<br/><br/>
-                Don't forget: If two kids are at the same distance, you need to deliver your gift to the kid that's more to the left of Santa's house.
+                Don't forget: If two kids are at the same distance, you still need to deliver your gift to the kid that's first, in the lexicographical order from the point of view of Santa's house.
 
                 <div id="puzzle-input-2" class="puzzle-input">
+                    <br/><br/>
                     Although it hasn't changed, you can still <a class="link" href="input">get your puzzle input</a>.
                 </div>
 
@@ -217,6 +221,7 @@ Step 8: <em class="white">lena</em> is the closest, 2 stops away.
                 <p id="success-msg-part-2"><em>TURBO BRAVO²!</em></p>
 
                 <div id="puzzle-input-all" class="puzzle-input">
+                    <br/><br/>
                     If you still want to see it, <a class="link" target="_blank" href="./input">you can get your puzzle input</a>.
                 </div>
             </div>
