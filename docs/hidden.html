@@ -35,11 +35,11 @@
 
                 🎅<i> Santa needs your help once again to save this festive moment </i>🎄<br><br>
 
-                With the world population officially hitting 8 billion people, Santa's job isn't getting easier. Enter the ✨<em>Gift-o-tron-3000</em>✨.<br/>
+                With the world population officially hitting 8 billion people, Santa's job isn't getting easier. Enter the ✨<em>Gift-o-tron-3000</em>✨.<br/><br/>
                 Santa could already see it! Using all the saved time to enjoy more cookies and a few extra glasses of milk left by the kids! The perfect Christmas all around...
                 Or so it should have been.<br><br>
 
-                Unfortunately, the shady elf merchant of this machine "forgot" to mention that the <em>Gift Positioning System</em> (GPS) of the machine significantly slows down with the number of kids increasing.<br/>
+                Unfortunately, the shady elf merchant of this machine "forgot" to mention that the <em>Gift Positioning System</em> (GPS) of the machine significantly slows down with the number of kids increasing.<br/><br/>
                 Luckily, we can provide our own GPS algorithm to the Gift-o-tron-3000! Lucky indeed, you know your way around code. They don't call you the sharpest coder of the North Pole for nothing!
                 All the kids of the world and Santa themself are counting on you! Let operation SOS GPS begin ✨
                 <br><br>
@@ -77,15 +77,16 @@ chayaline - LRLL</code></pre>
   <em>o</em>      /
    \    L - R - - - - -  lena
     \  /
-     <em class="white">RL</em> - <em class="white">RLR</em> - - - - -  tamo</code></pre>
+     <em class="white">RL</em> - <em class="white">RLR</em> - - - - -  tamo
+  </code></pre>
                 <br>
 
-                Notice how some nodes are collapsed together? That's the important part; it will define how many stops Santa's reindeer needs to make. Basically, one per node.<br/>
+                Notice how some nodes are collapsed together? That's the important part; it will define how many stops Santa's reindeer needs to make. Basically, one per node.<br/><br/>
                 <em>Your goal is to find which kid Santa can get to with as few stops as possible and gives his name.</em><br/><br/>
 
-                In the above case, <em>tommy</em> and <em>tamo</em> are the only kids accessible in two instructions. But since <em>tommy</em> appear first in the structure, he gets his gift first.<br/>
+                In the above case, <em>tommy</em> and <em>tamo</em> are the only kids accessible in two instructions. But since <em>tommy</em> appear first in the structure, he gets his gift first.<br/><br/>
                 To determine who is first in the structure, you must use the <a href="https://doc.rust-lang.org/stable/std/cmp/trait.Ord.html#lexicographical-comparison" target="_blank">lexicographical comparison</a> between their path.
-                In this case, LLL appears before RLRLR. In case a path is a subset of another, the shorter wins.
+                In this case, <em>LLL</em> appears before <em>RLRLR</em>. In case a path is a subset of another, the shorter wins.
 
                 <div id="puzzle-input-1" class="puzzle-input">
                    <br/><br/>
@@ -113,8 +114,10 @@ chayaline - LRLL</code></pre>
             <em>You need to find how many stops Santa will make.</em>
             The number of stops will help Santa know how many carrots they needs to bring for their beloved reindeers.<br/><br/>
 
-            <pre><code>Step 0: We're at Santa house
-           <em class="white">LL</em> - - - - - - tommy
+            <pre><code>
+Step 0: We're at Santa house.
+
+           <em class="white">LL</em> - - - - -  tommy
           /   L - - - -  chayaline, thomas
          /   /
         /   L - - - - -  caro
@@ -129,7 +132,8 @@ chayaline - LRLL</code></pre>
      RL - RLR - - - - -  tamo
 
 Step 1: <em class="white">tommy</em> is the closest, 2 stops away.
-           <em>LL</em> - - - - - - <em>2 stops in total</em>
+
+           <em>LL</em> - - - - -  <em>2 stops in total</em>
           /   L - - - -  chayaline, thomas
          /   /
         /   <em class="white">L</em> - - - - -  caro
@@ -144,7 +148,8 @@ Step 1: <em class="white">tommy</em> is the closest, 2 stops away.
      RL - RLR - - - - -  tamo
 
 Step 2: <em class="white">caro</em> is the closest, 3 stops away.
-              <em class="white">L</em> - - - - chayaline, thomas
+
+              <em class="white">L</em> - - - -  chayaline, thomas
              /
             <em>L</em> - - - - -  <em>5 stops in total</em>
            / \
@@ -158,11 +163,12 @@ Step 2: <em class="white">caro</em> is the closest, 3 stops away.
      RL - RLR - - - - -  tamo
 
 Step 3: <em class="white">chayaline and thomas</em> are the closest, 1 stops away.
+
               <em>L</em>  - - - - <em>6 stops in total</em>
              /
             <em class="white">L</em>
            / \
-          /   <em class="white">R</em> - -  -  kero
+          /   <em class="white">R</em> - - - -  kero
      L - R - RR - - - -  luna
     /
    /      L - - - - - -  loic
@@ -172,9 +178,10 @@ Step 3: <em class="white">chayaline and thomas</em> are the closest, 1 stops awa
      RL - RLR - - - - -  tamo
 
 Step 4: <em class="white">kero</em> is the closest, 2 stops away.
+
             <em class="white">L</em>
            / \
-          /   <em>R</em> - - -  <em>8 stops in total</em>
+          /   <em>R</em> - - - -  <em>8 stops in total</em>
      L - <em class="white">R</em> - <em class="white">RR</em> - - - -  luna
     /
    /      L - - - - - -  loic
@@ -183,7 +190,9 @@ Step 4: <em class="white">kero</em> is the closest, 2 stops away.
     \  /
      RL - RLR - - - - -  tamo
 
-Stop 5: <em class="white">luna</em> is the closest, 3 stops away.
+
+Step 5: <em class="white">luna</em> is the closest, 3 stops away.
+
      <em class="white">L</em> - <em class="white">R</em> - <em>RR</em> - - - -  <em>11 stops in total</em>
     /
    /      L - - - - - -  loic
@@ -192,7 +201,8 @@ Stop 5: <em class="white">luna</em> is the closest, 3 stops away.
     \  /
      <em class="white">RL</em> - <em class="white">RLR</em> - - - - -  tamo
 
-Step 6: <em class="white">tamo</em> is the closest, 5 stops away
+Step 6: <em class="white">tamo</em> is the closest, 5 stops away.
+
           <em class="white">L</em> - - - - - -  loic
   o      /
    \    <em class="white">L</em> - R - - - - -  lena
@@ -200,23 +210,26 @@ Step 6: <em class="white">tamo</em> is the closest, 5 stops away
      <em class="white">RL</em> - <em>RLR</em> - - - - -  <em>16 stops in total</em>
 
 Step 7: <em class="white">loic</em> is the closest, 3 stops away.
+
           <em>L</em> - - - - - -  <em>19 stops in total</em>
   o      /
    \    <em class="white">L</em> - <em class="white">R</em> - - - - -  lena
     \  /
      RL
 
+
 Step 8: <em class="white">lena</em> is the closest, 2 stops away.
+
   o
    \    L - R - - - - -  <em>21 stops in total</em>
     \  /
      RL
-                    </code>
-                </pre>
+
+</code></pre>
 
                 <br/>
 
-                In the example above, we have 21 stops in total.<br/><br/>
+                In the example above, we have <em>21 stops</em> in total.<br/><br/>
                 Don't forget: If two kids are at the same distance, you still need to deliver your gift to the kid that's first, in the lexicographical order from the point of view of Santa's house.
 
                 <div id="puzzle-input-2" class="puzzle-input">

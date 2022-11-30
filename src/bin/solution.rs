@@ -42,10 +42,10 @@ fn main() {
         if let Some((trie, dist)) = current.fastest_access(&ignored) {
             current = trie;
             total_distance += dist;
-            println!(
-                "Gift to {} in {} steps, total: {}",
-                current.terminate[0], dist, total_distance
-            );
+            // println!(
+            //     "Gift to {} in {} steps, total: {}",
+            //     current.terminate[0], dist, total_distance
+            // );
         } else {
             println!("{total_distance} nodes has been covered.");
             break;
