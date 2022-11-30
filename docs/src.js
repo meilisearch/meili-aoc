@@ -12,7 +12,7 @@
  * -------------
  */
 
-let discordEventUrl = "#"; //TODO change this
+let discordEventUrl = "https://discord.gg/meilisearch";
 let errorPrompt = `That's not the right answer. If you're stuck, make sure you're using the full input data; you can ask for hints on the <a class="discord" href=${discordEventUrl} target="_blank"> discord event</a>.`;
 let requiredInput = "Uh-oh... we need something to make the answer-o-tron work!";
 
