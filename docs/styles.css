@@ -51,6 +51,11 @@ a {
     color: #1B1717;
 }
 
+#footer > a {
+    color: #1B1717;
+    font-weight: bold;
+}
+
 #community-btn {
     position: fixed;
     top:10;
