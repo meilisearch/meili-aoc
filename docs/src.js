@@ -33,7 +33,7 @@ function validatePart1() {
         return;
     }
 
-    if (!(answer == '1234' || answer == 'bearach')) {
+    if (!(answer == 'bearach')) {
         document.getElementById("error-1").style.display = 'block';
         document.getElementById("error-1").innerHTML = errorPrompt + `<br><br>(You guessed: <em>${answer}</em>)`;
         return;
@@ -59,7 +59,7 @@ function validatePart2() {
         return;
     }
 
-    if (!(answer == '4321' | answer == '37371')) {
+    if (!(answer == '37371')) {
         document.getElementById("error-2").style.display = 'block';
         document.getElementById("error-2").innerHTML = errorPrompt + `<br><br>(You guessed: <em>${answer}</em>)`
         return;
