@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-html, body { margin:0; padding:0; width:100%; overflow-x:hidden; }
+html, body { margin:0; padding:0; width:100%; overflow-x: clip; }
 
 body {
     background: linear-gradient(to top, #4a4969 0%,#7072ab 50%,#cd82a0 100%);
