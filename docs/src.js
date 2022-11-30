@@ -81,6 +81,7 @@ function elfQuotes() {
         "Feeling stuck? Try asking for hints on the discord event!",
         "Jingle bell, jingle bell, jingle bell rock",
         "Snowin' and blowin' up bushels of fun",
+        "++[---------->+<]>.>--[----->+<]>-.+++++++++++++..+++++++.-[---->+<]>++.+[->++<]>+.+[-->+++<]>++.++++++++++.---------.++++++++++.+.-------.------------.--[--->+<]>--.",
         "Sharing is caring, so share this event with your friends!",
         "You're doing great! Keep it up!",
         "What's the best way to spread Christmas cheer? Singing loud for all to hear!",

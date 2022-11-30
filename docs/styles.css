@@ -158,6 +158,7 @@ a {
     transform: perspective(1px) translateZ(0);
     -webkit-transform-origin: 0 100%;
     transform-origin: 0 100%;
+    word-wrap: break-word;
 }
 
 #text > a {
