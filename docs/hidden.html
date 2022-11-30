@@ -37,6 +37,7 @@
 loic - RLLL
 kero - LRLR
 luna - LRRR
+caro - LRL
 lena - RLLR
 thomas - LRLL
 tommy - LLL
@@ -52,11 +53,12 @@ chayaline - LRLL</code></pre>
                 With the input above, our new GPS map must look like this:
 
                 <pre><code>
-         <em class="white">LL</em> - - - - - - tommy
-         /   L - - - - - chayaline, thomas
-        /   /
-       /   L - R - - - - kero
-      /   /
+          <em class="white">LL</em> - - - - - - tommy
+          /   L - - - -  chayaline, thomas
+         /   /
+        /   L - - - - -  caro
+       /   / \
+      /   /   R - - - -  kero
      <em class="white">L</em> - R - RR - - - -  luna
     /
    /      L - - - - - -  loic
@@ -97,11 +99,12 @@ chayaline - LRLL</code></pre>
             The number of stops will help Santa know how many carots they needs to bring for their dear reindeers.<br/><br/>
 
             <pre><code>Step 0: We're at Santa house
-          <em class="white">LL</em> - - - - - - tommy
-         /   L - - - - - chayaline, thomas
-        /   /
-       /   L - R - - - - kero
-      /   /
+           <em class="white">LL</em> - - - - - - tommy
+          /   L - - - -  chayaline, thomas
+         /   /
+        /   L - - - - -  caro
+       /   / \
+      /   /   R - - - -  kero
      <em class="white">L</em> - R - RR - - - -  luna
     /    
    /      L - - - - - -  loic
@@ -109,14 +112,15 @@ chayaline - LRLL</code></pre>
    \    L - R - - - - -  lena
     \  /
      RL - RLR - - - - -  tamo
-         
+
 Step 1: <em class="white">tommy</em> is the closest, 2 stops away.
-          <em>LL</em> - - - - - - <em>2 stops in total</em>
-         /   L - - - - - chayaline, thomas
-        /   /
-       /   L - R - - - - kero
-      /   /
-     <em class="white">L</em> - <em class="white">R</em> - <em class="white">RR</em> - - - -  luna
+           <em>LL</em> - - - - - - <em>2 stops in total</em>
+          /   L - - - -  chayaline, thomas
+         /   /
+        /   <em class="white">L</em> - - - - -  caro
+       /   / \
+      /   /   R - - - -  kero
+     <em class="white">L</em> - <em class="white">R</em> - RR - - - -  luna
     /    
    /      L - - - - - -  loic
   o      /
@@ -124,58 +128,70 @@ Step 1: <em class="white">tommy</em> is the closest, 2 stops away.
     \  /
      RL - RLR - - - - -  tamo
 
-Step 2: <em class="white">luna</em> is the closest, 3 stops away.
-             <em class="white">L</em> - - - - - chayaline, thomas
-            /
-           <em class="white">L</em> - R - - - - kero
-          /
-     L - <em class="white">R</em> - <em>RR</em> - - - -  <em>5 stops in total</em>
+Step 2: <em class="white">caro</em> is the closest, 3 stops away.
+              <em class="white">L</em> - - - - chayaline, thomas
+             /
+            <em>L</em> - - - - -  <em>5 stops in total</em>
+           / \
+          /   R - - - -  kero
+     L - R - RR - - - -  luna
     /    
    /      L - - - - - -  loic
   o      /
    \    L - R - - - - -  lena
     \  /
      RL - RLR - - - - -  tamo
-      
-Step 3: <em class="white">chayaline and thomas</em> are the closest, 3 stops away.
-             <em>L</em> - - - - - <em>8 stops in total</em>
-            /
-           <em class="white">L</em> - <em class="white">R</em> - - - - kero
-          /
-     L - R
+
+Step 3: <em class="white">chayaline and thomas</em> are the closest, 1 stops away.
+              <em>L</em>  - - - - <em>6 stops in total</em>
+             /
+            <em class="white">L</em>
+           / \
+          /   <em class="white">R</em> - -  -  kero  
+     L - R - RR - - - -  luna
     /    
    /      L - - - - - -  loic
   o      /
    \    L - R - - - - -  lena
     \  /
      RL - RLR - - - - -  tamo
-      
-Stop 4: <em class="white">kero</em> is the closest, 2 stops away.
-           <em class="white">L</em> - <em>R</em> - - - - <em>10 stops in total</em>
-          /
-     <em class="white">L</em> - <em class="white">R</em>
+
+Step 4: <em class="white">kero</em> is the closest, 2 stops away.
+            <em class="white">L</em> 
+           / \
+          /   <em>R</em> - - -  <em>8 stops in total</em>
+     L - <em class="white">R</em> - <em class="white">RR</em> - - - -  luna
+    /    
+   /      L - - - - - -  loic
+  o      /
+   \    L - R - - - - -  lena
+    \  /
+     RL - RLR - - - - -  tamo
+ 
+Stop 5: <em class="white">luna</em> is the closest, 3 stops away.
+     <em class="white">L</em> - <em class="white">R</em> - <em>RR</em> - - - -  <em>11 stops in total</em>
     /    
    /      L - - - - - -  loic
   <em class="white">o</em>      /
    \    L - R - - - - -  lena
     \  /
      <em class="white">RL</em> - <em class="white">RLR</em> - - - - -  tamo
-      
-Step 5: <em class="white">tamo</em> is the closest, 6 stops away
+
+Step 6: <em class="white">tamo</em> is the closest, 5 stops away
           <em class="white">L</em> - - - - - -  loic
   o      /
    \    <em class="white">L</em> - R - - - - -  lena
     \  /
      <em class="white">RL</em> - <em>RLR</em> - - - - -  <em>16 stops in total</em>
 
-Step 6: <em class="white">loic</em> is the closest, 3 stops away.
+Step 7: <em class="white">loic</em> is the closest, 3 stops away.
           <em>L</em> - - - - - -  <em>19 stops in total</em>
   o      /
- \    <em class="white">L</em> - <em class="white">R</em> - - - - -  lena
+   \    <em class="white">L</em> - <em class="white">R</em> - - - - -  lena
     \  /
      RL
-      
-Step 7: <em class="white">lena</em> is the closest, 2 stops away.
+
+Step 8: <em class="white">lena</em> is the closest, 2 stops away.
   o        
    \    L - R - - - - -  <em>21 stops in total</em>
     \  /
