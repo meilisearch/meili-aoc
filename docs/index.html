@@ -86,7 +86,7 @@ chayaline - LRLL</code></pre>
                 Notice how some nodes are collapsed together? That's the important part; it will define how many stops Santa's reindeer needs to make. Basically, one per node.<br/><br/>
                 <em>Your goal is to find which kid Santa can get to with as few stops as possible and gives his name.</em><br/><br/>
 
-                In the above case, <em>tommy</em> and <em>tamo</em> are the only kids accessible in two instructions. But since <em>tommy</em> appear first in the structure, he gets his gift first.<br/><br/>
+                In the above case, <em>tommy</em> and <em>tamo</em> are the only kids accessible in two instructions. But since <em>tommy</em> appears first in the structure, he gets his gift first.<br/><br/>
                 To determine who is first in the structure, you must use the <a href="https://doc.rust-lang.org/stable/std/cmp/trait.Ord.html#lexicographical-comparison" target="_blank">lexicographical comparison</a> between their path.
                 In this case, <em>LLL</em> appears before <em>RLRLR</em>. In case a path is a subset of another, the shorter wins.
 
